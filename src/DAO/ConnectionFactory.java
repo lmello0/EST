@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  */
 public class ConnectionFactory {
     public DataSource dataSource;
-    final static String DB_URL = "jdbc:oracle:thin:@est02_high?TNS_ADMIN=C://Wallet_est02";
+    final static String DB_URL = "jdbc:oracle:thin:@estocagem01_high?TNS_ADMIN=C://Wallet_ESTOCAGEM01";
     final static String DB_USER = "app";
     final static String DB_PASS = "javaJDBCmod1";
     
@@ -29,7 +29,7 @@ public class ConnectionFactory {
         comboPooledDataSource.setJdbcUrl(DB_URL);
         comboPooledDataSource.setUser(DB_USER);
         comboPooledDataSource.setPassword(DB_PASS);
-        comboPooledDataSource.setMaxPoolSize(6);
+        comboPooledDataSource.setMaxPoolSize(3);
         
         this.dataSource = comboPooledDataSource;
     }
