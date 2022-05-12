@@ -4,17 +4,10 @@
  */
 package DAO;
 
-import Telas.TelaPrincipalGerente;
-import Telas.TelaPrincipalVendedor;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -82,7 +75,7 @@ public class Comandos {
     }
     
     public DefaultTableModel getPedidosVendedor(String cpf, String idProduto, String idPedido, String nomeCliente, String dtIni, String dtFim, javax.swing.JTable table, String[] colunas) throws SQLException{     
-        String SQL = "SELECT A.ID, B.NOME AS \"PRODUTO\", A.QUANTIDADE, C.NOME AS \"CLIENTE\", TO_CHAR(A.DT_COMPRA, 'DD/MM/YYYY') AS DT_COMPRA, B.VALOR AS \"VALOR UNITARIO\", TO_CHAR((B.VALOR * A.QUANTIDADE), '9,999,999,999,999.99'), D.NOME FROM DEV.PEDIDOS A JOIN DEV.PRODUTOS B ON B.ID = A.ID_PRODUTO JOIN DEV.CLIENTES C ON C.ID = A.ID_CLIENTE JOIN DEV.VENDEDORES D ON D.ID = A.ID_VENDEDOR WHERE D.CPF = NVL(?, D.CPF) AND B.ID = NVL(?, B.ID) AND A.ID = NVL(?, A.ID) AND C.NOME = NVL(?, C.NOME) AND TRUNC(DT_COMPRA) BETWEEN NVL(?, TRUNC(DT_COMPRA)) AND NVL(?, TO_CHAR(SYSDATE - 3/24, 'DD/MON/YYYY')) ORDER BY A.DT_COMPRA DESC";
+        String SQL = "SELECT A.ID, B.NOME AS \"PRODUTO\", A.QUANTIDADE, C.NOME AS \"CLIENTE\", TO_CHAR(A.DT_COMPRA, 'DD/MM/YYYY'), B.VALOR AS \"VALOR UNITARIO\", TO_CHAR((B.VALOR * A.QUANTIDADE), '9,999,999,999,999.99'), D.NOME AS \"VENDEDOR\" FROM DEV.PEDIDOS A JOIN DEV.CLIENTES C ON C.ID = A.ID_CLIENTE JOIN DEV.VENDEDORES D ON D.ID = A.ID_VENDEDOR JOIN DEV.PEDIDO_PRODUTO E ON E.ID_PEDIDO = A.ID JOIN DEV.PRODUTOS B ON B.ID = E.ID_PRODUTO WHERE D.CPF = NVL(?, D.CPF) AND B.ID = NVL(?, B.ID) AND A.ID = NVL(?, A.ID) AND C.NOME = NVL(C.NOME, ?) AND TRUNC(DT_COMPRA) BETWEEN NVL(?, TRUNC(DT_COMPRA)) AND NVL(?, TO_CHAR(SYSDATE - 3/24, 'DD/MON/YYYY')) ORDER BY A.DT_COMPRA DESC";
         
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setColumnIdentifiers(colunas);

@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package Telas;
 
@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -23,22 +22,19 @@ import javax.swing.table.TableModel;
  *
  * @author mello
  */
-public class TelaRelatorios extends javax.swing.JFrame {
+public class TelaRelatorios extends javax.swing.JDialog {
     Comandos comandos;
-    String cpf;
     String[] colunas = {"ID", "PRODUTO", "QUANTIDADE", "CLIENTE", "DATA DO PEDIDO", "VALOR", "VALOR TOTAL", "VENDEDOR"};
     /**
-     * Creates new form TelaRelatórios
+     * Creates new form TelaRelatorios2
+     * @param parent
+     * @param modal
      * @param comandos
-     * @param cpf
-     * @throws java.sql.SQLException
      */
-    public TelaRelatorios(Comandos comandos, String cpf) throws SQLException {
+    public TelaRelatorios(java.awt.Frame parent, boolean modal, Comandos comandos) {
+        super(parent, modal);
         this.comandos = comandos;
-        this.cpf = cpf;
         initComponents();
-        
-//        tablePedidos.setModel(comandos.getPedidosVendedor(null, null, null, null, null, null, tablePedidos, colunas));
     }
 
     /**
@@ -62,6 +58,7 @@ public class TelaRelatorios extends javax.swing.JFrame {
         tablePedidos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         scrollPaneGeral.setMinimumSize(new java.awt.Dimension(858, 560));
@@ -163,18 +160,18 @@ public class TelaRelatorios extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String dtIni = txtDtIni.getText();
         String dtFim = txtDtFim.getText();
-        
+
         if(!dtIni.equals("") && !dtIni.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$")){
             JOptionPane.showMessageDialog(null, "O formato da data está errado!", "Erro na data inicial", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         if(!dtFim.equals("") && !dtFim.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$")){
             JOptionPane.showMessageDialog(null, "O formato da data está errado!", "Erro na data final", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         if (dtIni.equals("")) dtIni = null;
         if (dtFim.equals("")) dtFim = null;
-        
+
         try {
             tablePedidos.setModel(comandos.getPedidosVendedor(null, null, null, null, dtIni, dtFim, tablePedidos, colunas));
         } catch (SQLException ex) {
@@ -186,26 +183,26 @@ public class TelaRelatorios extends javax.swing.JFrame {
         if (tablePedidos.getRowCount() != 0){
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmm");
             String filename = "EXTRACAO_EST_" + formatter.format(new Date()) + ".csv";
-            
+
             // Janela para selecao do local de salvamento
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             chooser.setAcceptAllFileFilterUsed(false);
             FileNameExtensionFilter filtro = new FileNameExtensionFilter("Comma Separated Values (.csv)", "csv");
             chooser.addChoosableFileFilter(filtro);
-            
+
             filename = chooser.getCurrentDirectory() + "\\" + filename;
             chooser.setSelectedFile(new File(filename));
-            
+
             if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
                 if (!chooser.getSelectedFile().isDirectory()){
                     filename = chooser.getSelectedFile().getAbsolutePath() + ".csv";
                 }
-                
+
                 // Exporta o resultado da pesquisa num arquivo
                 try {
                     exportToCsv(tablePedidos, filename);
-                    
+
                     JOptionPane.showMessageDialog(null, "Relatorio exportado para\n" + filename, null, JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(TelaRelatorios.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,9 +211,21 @@ public class TelaRelatorios extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Faca uma pesquisa antes de gerar um relatorio!", null, JOptionPane.WARNING_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_btnDownloadActionPerformed
-    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDownload;
+    private javax.swing.JLabel lblDtFim;
+    private javax.swing.JLabel lblDtIni;
+    private javax.swing.JPanel panelGeral;
+    private javax.swing.JScrollPane scrollPaneGeral;
+    private javax.swing.JScrollPane scrollPaneTablePedidos;
+    private static javax.swing.JTable tablePedidos;
+    private javax.swing.JFormattedTextField txtDtFim;
+    private javax.swing.JFormattedTextField txtDtIni;
+    // End of variables declaration//GEN-END:variables
+
     private void exportToCsv(javax.swing.JTable table, String path) throws IOException{
         TableModel model = table.getModel();
         try (FileWriter csv = new FileWriter(new File(path))) {
@@ -230,57 +239,4 @@ public class TelaRelatorios extends javax.swing.JFrame {
             }
         }
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new TelaRelatorios(new Comandos(), "e75b46836632e11635a53d2a3125a65d25e5602187a2d13b01f89547092a5f2524b11f141b4c9c82d4c2b7c71c21c43fd9cfe3215e473a99aae8646d5da0c07a").setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(TelaRelatorios.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnDownload;
-    private javax.swing.JLabel lblDtFim;
-    private javax.swing.JLabel lblDtIni;
-    private javax.swing.JPanel panelGeral;
-    private javax.swing.JScrollPane scrollPaneGeral;
-    private javax.swing.JScrollPane scrollPaneTablePedidos;
-    private static javax.swing.JTable tablePedidos;
-    private javax.swing.JFormattedTextField txtDtFim;
-    private javax.swing.JFormattedTextField txtDtIni;
-    // End of variables declaration//GEN-END:variables
 }
