@@ -1,11 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package Telas;
 
-import javax.swing.JOptionPane;
 import DAO.Comandos;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -13,26 +11,27 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
- * @author 125111358721
+ * @author mello
  */
-public class TelaCadastro extends javax.swing.JFrame {
+public class TelaCadastro extends javax.swing.JDialog {
+    Comandos comandos;
     private float[] green = new float[3];
     private boolean verSenha = false;
-    Comandos comandos;
-    String cpf;
+    
     /**
-     * Creates new form Tela_cadastro
-     * @param comandos
-     * @param cpf
+     * Creates new form TelaCadastroJDialog
+     * @param parent
+     * @param modal
      */
-    public TelaCadastro(Comandos comandos, String cpf) {
+    public TelaCadastro(java.awt.Frame parent, boolean modal, Comandos comandos) {
+        super(parent, modal);
         this.comandos = comandos;
-        this.cpf = cpf;
         initComponents();
-        
     }
 
     /**
@@ -64,7 +63,6 @@ public class TelaCadastro extends javax.swing.JFrame {
         btnVerSenha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de usuário");
         setResizable(false);
 
         lblNome.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
@@ -194,38 +192,35 @@ public class TelaCadastro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCargo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblContSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblNome)
-                                    .addComponent(lblSenha))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblCargo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbCargo, 0, 122, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblCPF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblContSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblSenhaTam)
-                                            .addComponent(lblSenhaMaiuscula)
-                                            .addComponent(lblSenhaMinuscula)
-                                            .addComponent(lblSenhaEspecial)
-                                            .addComponent(lblSenhaNum))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(lblSenhaTam)
+                                    .addComponent(lblSenhaMaiuscula)
+                                    .addComponent(lblSenhaMinuscula)
+                                    .addComponent(lblSenhaEspecial)
+                                    .addComponent(lblSenhaNum))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblSenha)
+                                    .addComponent(lblCPF))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVerSenha)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,6 +232,10 @@ public class TelaCadastro extends javax.swing.JFrame {
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCPF)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,71 +252,106 @@ public class TelaCadastro extends javax.swing.JFrame {
                 .addComponent(lblSenhaNum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSenhaEspecial)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCPF)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCargo)
                     .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnLimpar))
-                .addGap(41, 41, 41))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
-
-        txtNome.getAccessibleContext().setAccessibleName("");
-        txtNome.getAccessibleContext().setAccessibleDescription("");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        cadastrar();
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtSenha.requestFocus();
+        }
 
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        limpar();
-    }//GEN-LAST:event_btnLimparActionPerformed
+        validaTamanho(txtNome, 40);
+    }//GEN-LAST:event_txtNomeKeyPressed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtCPF.requestFocus();
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
         String senha = String.valueOf(txtSenha.getPassword());
         Color.RGBtoHSB(25, 99, 40, green);
-        
+
         if (senha.length() >= 8 && senha.length() <= 20) {
             lblSenhaTam.setForeground(Color.getHSBColor(green[0], green[1], green[2]));
         } else {
             lblSenhaTam.setForeground(Color.red);
         }
-        
+
         if (senha.matches("^(?=.*[A-Z]).{1,}")) {
             lblSenhaMaiuscula.setForeground(Color.getHSBColor(green[0], green[1], green[2]));
         } else {
             lblSenhaMaiuscula.setForeground(Color.red);
         }
-        
+
         if (senha.matches("^(?=.*[a-z]).{1,}")) {
             lblSenhaMinuscula.setForeground(Color.getHSBColor(green[0], green[1], green[2]));
         } else {
             lblSenhaMinuscula.setForeground(Color.red);
-        }    
-        
+        }
+
         if (senha.matches("^(?=.*[0-9]).{1,}")) {
             lblSenhaNum.setForeground(Color.getHSBColor(green[0], green[1], green[2]));
         } else {
             lblSenhaNum.setForeground(Color.red);
         }
-        
+
         if (senha.matches("^(?=.*[!@#$%^&*()]).{1,}")) {
             lblSenhaEspecial.setForeground(Color.getHSBColor(green[0], green[1], green[2]));
         } else {
             lblSenhaEspecial.setForeground(Color.red);
         }
-        
+
     }//GEN-LAST:event_txtSenhaKeyReleased
+
+    private void cbCargoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbCargoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnCadastrar.requestFocus();
+        }
+    }//GEN-LAST:event_cbCargoKeyPressed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        cadastrar();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnCadastrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCadastrarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cadastrar();
+        }
+    }//GEN-LAST:event_btnCadastrarKeyPressed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limpar();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnLimparKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLimparKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpar();
+        }
+    }//GEN-LAST:event_btnLimparKeyPressed
+
+    private void txtCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbCargo.requestFocus();
+        }
+    }//GEN-LAST:event_txtCPFKeyPressed
+
+    private void txtCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyTyped
+        validaTamanho(txtCPF, 14);
+    }//GEN-LAST:event_txtCPFKeyTyped
 
     private void btnVerSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSenhaActionPerformed
         if (!verSenha) {
@@ -328,145 +362,6 @@ public class TelaCadastro extends javax.swing.JFrame {
             verSenha = !verSenha;
         }
     }//GEN-LAST:event_btnVerSenhaActionPerformed
-
-    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtSenha.requestFocus();
-        }
-        
-        validaTamanho(txtNome, 40);
-    }//GEN-LAST:event_txtNomeKeyPressed
-
-    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtCPF.requestFocus();
-        }
-    }//GEN-LAST:event_txtSenhaKeyPressed
-
-    private void txtCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            cbCargo.requestFocus();
-        }
-    }//GEN-LAST:event_txtCPFKeyPressed
-
-    private void cbCargoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbCargoKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btnCadastrar.requestFocus();
-        }
-    }//GEN-LAST:event_cbCargoKeyPressed
-
-    private void btnCadastrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCadastrarKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            cadastrar();
-        }
-    }//GEN-LAST:event_btnCadastrarKeyPressed
-
-    private void btnLimparKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLimparKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            limpar();
-        }
-    }//GEN-LAST:event_btnLimparKeyPressed
-
-    private void txtCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyTyped
-        validaTamanho(txtCPF, 14);
-    }//GEN-LAST:event_txtCPFKeyTyped
-
-    private void cadastrar(){
-        String nome = txtNome.getText().toUpperCase().strip();
-        String senha = String.valueOf(txtSenha.getPassword());
-        String cargo = String.valueOf(cbCargo.getSelectedItem()).strip().toUpperCase();
-        String cpf = String.valueOf(txtCPF.getText()).strip().replace(".", "").replace("-", "");
-        
-        boolean nomeValido, senhaValida, cpfValido;
-        
-        nomeValido = validaNome(nome);
-        senhaValida = validaSenha(senha);
-        cpfValido = validaCpf(cpf);
-        
-        SHA512 hash = new SHA512();
-        
-        try {
-            senha = hash.toHexStr(hash.obtainSHA(senha));
-            cpf = hash.toHexStr(hash.obtainSHA(cpf));
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        if (nomeValido && senhaValida && cpfValido) {
-            try {
-                Comandos comandos = new Comandos();
-                
-                comandos.insertFuncionario(nome, senha, cargo, cpf);
-                
-                JOptionPane.showConfirmDialog(null, "FUNCIONARIO INCLUÍDO!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                
-                limpar();
-            } catch (SQLException ex) {
-                if (ex.getErrorCode() == 20000) {
-                    JOptionPane.showConfirmDialog(null, "FUNCIONÁRIO JÁ CADASTRADO!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                    limpar();
-                } else {
-                    JOptionPane.showConfirmDialog(null, ex.getMessage(), null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                    limpar();
-                }
-                
-                
-            }
-        }
-    }
-    
-    private boolean validaNome(String nome){
-        if (nome.isBlank()) {
-            JOptionPane.showConfirmDialog(null, "O nome não pode ser nulo!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else if (!nome.matches("^(?![\s.]+$)[a-zA-Z\s.]*$")){
-            JOptionPane.showConfirmDialog(null, "Nome inválido.\nColoque o nome sem acentos e sem números", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        return true;
-    }
-    
-    private boolean validaSenha(String senha){
-        if (!senha.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,20}")) {
-            JOptionPane.showConfirmDialog(null, "A senha não atende aos requisitos!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validaCpf(String cpf) {
-        if (cpf.isBlank()){
-            JOptionPane.showConfirmDialog(null, "O CPF não pode ser nulo!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else if (!cpf.matches("([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")){
-            JOptionPane.showConfirmDialog(null, "O CPF não tem um formato válido!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        return true;
-    }
-    
-    private void limpar() {
-        txtNome.setText(null);
-        txtSenha.setText(null);
-        cbCargo.setSelectedIndex(0);
-        txtCPF.setText(null);
-        
-        lblSenhaTam.setForeground(Color.red);
-        lblSenhaMaiuscula.setForeground(Color.red);
-        lblSenhaMinuscula.setForeground(Color.red);
-        lblSenhaNum.setForeground(Color.red);
-        lblSenhaEspecial.setForeground(Color.red);
-    }
-    
-    private void validaTamanho(javax.swing.JTextField texto, int tamanho){
-        if (texto.getText().length() >= tamanho){
-            texto.setText(texto.getText().substring(0, tamanho-1));
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnLimpar;
@@ -487,4 +382,98 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+    private void validaTamanho(JTextField texto, int tamanho) {
+        if (texto.getText().length() >= tamanho){
+            texto.setText(texto.getText().substring(0, tamanho-1));
+        }
+    }
+
+    private void cadastrar() {
+        String nome = txtNome.getText().toUpperCase().trim();
+        String senha = String.valueOf(txtSenha.getPassword());
+        String cargo = String.valueOf(cbCargo.getSelectedItem()).trim().toUpperCase();
+        String cpf = String.valueOf(txtCPF.getText()).trim().replace(".", "").replace("-", "");
+        
+        boolean nomeValido, senhaValida, cpfValido;
+        
+        nomeValido = validaNome(nome);
+        senhaValida = validaSenha(senha);
+        cpfValido = validaCpf(cpf);
+        
+        SHA512 hash = new SHA512();
+        
+        try {
+            senha = hash.toHexStr(hash.obtainSHA(senha));
+            cpf = hash.toHexStr(hash.obtainSHA(cpf));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        if (nomeValido && senhaValida && cpfValido) {
+            try {
+                comandos.insertFuncionario(nome, senha, cargo, cpf);
+                
+                JOptionPane.showConfirmDialog(null, "FUNCIONARIO INCLUÍDO!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                
+                limpar();
+            } catch (SQLException ex) {
+                if (ex.getErrorCode() == 20000) {
+                    JOptionPane.showConfirmDialog(null, "FUNCIONÁRIO JÁ CADASTRADO!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                    limpar();
+                } else {
+                    JOptionPane.showConfirmDialog(null, ex.getMessage(), null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                    limpar();
+                }
+                
+                
+            }
+        }
+    }
+
+    private void limpar() {
+        txtNome.setText(null);
+        txtSenha.setText(null);
+        cbCargo.setSelectedIndex(0);
+        txtCPF.setText(null);
+        
+        lblSenhaTam.setForeground(Color.red);
+        lblSenhaMaiuscula.setForeground(Color.red);
+        lblSenhaMinuscula.setForeground(Color.red);
+        lblSenhaNum.setForeground(Color.red);
+        lblSenhaEspecial.setForeground(Color.red);
+    }
+
+    private boolean validaNome(String nome) {
+        if (nome.isEmpty()) {
+            JOptionPane.showConfirmDialog(null, "O nome não pode ser nulo!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (!nome.matches("^(?![\\s.]+$)[a-zA-Z\\s.]*$")){
+            JOptionPane.showConfirmDialog(null, "Nome inválido.\nColoque o nome sem acentos e sem números", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+
+    private boolean validaSenha(String senha) {
+        if (!senha.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,20}")) {
+            JOptionPane.showConfirmDialog(null, "A senha não atende aos requisitos!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validaCpf(String cpf) {
+        if (cpf.isEmpty()){
+            JOptionPane.showConfirmDialog(null, "O CPF não pode ser nulo!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (!cpf.matches("([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")){
+            JOptionPane.showConfirmDialog(null, "O CPF não tem um formato válido!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
 }

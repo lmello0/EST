@@ -200,7 +200,7 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String entrada = txtBuscar.getText();
 
-        if (isNumber(entrada) || entrada.isBlank()) {        
+        if (isNumber(entrada) || entrada.isEmpty()) {        
             try {
                 tablePedidos.setModel(comandos.getPedidosVendedor(cpf, null, null, null, null, null, tablePedidos, colunas));
             } catch (SQLException ex) {
@@ -239,24 +239,6 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
         }
         
         return String.copyValueOf(charString);
-    }
-    
-    public static void popularTabela(ResultSet rs) throws SQLException{
-        DefaultTableModel model = (DefaultTableModel) tablePedidos.getModel();
-        model.setNumRows(0);
-        
-        while (rs.next()){
-            model.addRow(new Object[]{
-                rs.getString(1),
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4),
-                rs.getString(5),
-                rs.getString(6),
-                rs.getString(7)
-            });
-        }
-        tablePedidos.repaint();
     }
     
     private boolean isNumber(String string){

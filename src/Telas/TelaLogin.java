@@ -125,7 +125,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String senha = String.valueOf(txtSenha.getPassword());
-        String cpf = String.valueOf(txtCPF.getText()).strip().replace(".", "").replace("-", "");
+        String cpf = String.valueOf(txtCPF.getText()).trim().replace(".", "").replace("-", "");
         
         boolean cpfValido;
         
@@ -137,20 +137,23 @@ public class TelaLogin extends javax.swing.JFrame {
             senha = hash.toHexStr(hash.obtainSHA(senha));
             cpf = hash.toHexStr(hash.obtainSHA(cpf));
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
         if (cpfValido) {
             try {
                 ArrayList retorno = comandos.login(cpf, senha);
                 
                 if ((Boolean) retorno.get(0)) {
-                    dispose();
-                    
-                    if (retorno.get(1).equals("VENDEDOR")){
-                        new TelaPrincipalVendedor(comandos, cpf).setVisible(true);
-                    } else {
+                    if (retorno.get(1).equals("GERENTE")){
                         new TelaPrincipalGerente(comandos, cpf).setVisible(true);
+                        dispose();
+                    } else if(retorno.get(1).equals("VENDEDOR")) {
+                        new TelaPrincipalVendedor(comandos, cpf).setVisible(true);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Cargo não registrado no sistema!\nFavor comunicar o gerente.", "Falha ao logar", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "CPF ou senha inválido(a)!", "Falha ao logar", JOptionPane.ERROR_MESSAGE);
@@ -169,7 +172,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaKeyPressed
 
     private boolean validaCpf(String cpf) {
-        if (cpf.isBlank()){
+        if (cpf.isEmpty()){
             JOptionPane.showConfirmDialog(null, "O CPF não pode ser nulo!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (!cpf.matches("([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")){
@@ -178,6 +181,44 @@ public class TelaLogin extends javax.swing.JFrame {
         }
         
         return true;
+    }
+    
+    public static void main(String args[]) throws SQLException {
+        Comandos comandos = new Comandos();
+        
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipalVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipalVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipalVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipalVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new TelaLogin(comandos).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

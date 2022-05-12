@@ -5,14 +5,11 @@
 package Telas;
 
 import DAO.Comandos;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author mello
@@ -224,9 +221,9 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String entrada = txtBuscar.getText();
 
-        if (isNumber(entrada) || entrada.isBlank()) {        
+        if (isNumber(entrada) || entrada.isEmpty()) {        
             try {
-                tablePedidos.setModel(comandos.getPedidosVendedor(cpf, null, null, null, null, null, tablePedidos, colunas));
+                tablePedidos.setModel(comandos.getPedidosVendedor(cpf, null, entrada, null, null, null, tablePedidos, colunas));
             } catch (SQLException ex) {
                 Logger.getLogger(TelaPrincipalGerente.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -249,15 +246,11 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-        new TelaCadastro(comandos, cpf).setVisible(true);
+        new TelaCadastro(this, true, comandos).setVisible(true);
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        try {
-            new TelaRelatorios(comandos, cpf).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaPrincipalGerente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new TelaRelatorios(this, true, comandos).setVisible(true);
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     /**
@@ -275,25 +268,6 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
         }
         
         return String.copyValueOf(charString);
-    }
-    
-    public static void popularTabela(ResultSet rs) throws SQLException{
-        DefaultTableModel model = (DefaultTableModel) tablePedidos.getModel();
-        model.setNumRows(0);
-        
-        while (rs.next()){
-            model.addRow(new Object[]{
-                rs.getString(1),
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4),
-                rs.getString(5),
-                rs.getString(6),
-                rs.getString(7),
-                rs.getString(8)
-            });
-        }
-        tablePedidos.repaint();
     }
     
     private boolean isNumber(String string){
