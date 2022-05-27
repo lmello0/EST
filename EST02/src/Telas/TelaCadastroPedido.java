@@ -60,7 +60,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             popularComboBox(cbVendedor, comandos.getVendedor());
             
             // seleciona o funcionario com base no nome
-            cbVendedor.setSelectedItem(comandos.getFuncionario(funcionario.getCpf()).get(0));
+            cbVendedor.setSelectedItem(funcionario.getNome());
         } catch (SQLException ex) {
             Logger.getLogger(TelaCadastroPedido.class.getName()).log(Level.SEVERE, null, ex);
         }

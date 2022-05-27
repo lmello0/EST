@@ -162,22 +162,6 @@ public class Comandos {
         return itens;
     }
     
-    public String getCargo(String cpf) throws SQLException {
-        String SQL = "SELECT CARGO FROM DEV.VENDEDOR WHERE CPF = ?";
-        String cargo = "";
-        
-        try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
-            execQuery.setString(1, cpf);
-            
-            ResultSet rs = execQuery.executeQuery();
-            while(rs.next()){
-                cargo = rs.getString(1);
-            }
-        }
-        
-        return cargo;
-    }
-    
     public void closeConnection() throws SQLException{
         conexao.close();
     }

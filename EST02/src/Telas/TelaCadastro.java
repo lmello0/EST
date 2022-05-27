@@ -423,7 +423,6 @@ public class TelaCadastro extends javax.swing.JDialog {
         
         try {
             senha = hash.toHexStr(hash.obtainSHA(senha));
-            cpf = hash.toHexStr(hash.obtainSHA(cpf));
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
