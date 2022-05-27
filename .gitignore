@@ -1,6 +1,7 @@
 # Arquivos
 20220512_185307_0004.png
 est02.txt
+EST02/src/config.properties
 
 # Pastas
 EST02/.idea/**
@@ -10,4 +11,3 @@ EST02/out/
 EST02/test/
 EST02/Wallet_ESTOCAGEM01/
 
-config.properties
