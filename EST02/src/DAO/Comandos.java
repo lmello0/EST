@@ -35,6 +35,7 @@ public class Comandos {
             
             execQuery.execute();
             conexao.commit();
+            // comentario
         }
     }
     
