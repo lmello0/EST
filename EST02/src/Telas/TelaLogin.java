@@ -4,6 +4,7 @@
  */
 package Telas;
 
+import Classes.*;
 import DAO.Comandos;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -65,6 +66,9 @@ public class TelaLogin extends javax.swing.JFrame {
         txtCPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCPFKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCPFKeyTyped(evt);
             }
         });
 
@@ -182,6 +186,13 @@ public class TelaLogin extends javax.swing.JFrame {
             btnLogin.doClick();
         }
     }//GEN-LAST:event_txtCPFKeyPressed
+
+    private void txtCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyTyped
+        char letra = evt.getKeyChar();
+        if ((((letra < '0') || (letra > '9')) && (letra != KeyEvent.VK_BACK_SPACE)) || txtCPF.getText().length() >= 11){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCPFKeyTyped
 
     // metodo para validar o cpf, so retorna true se o valor nao for nulo e atender ao RegEx
     private boolean validaCpf(String cpf) {

@@ -4,6 +4,7 @@
  */
 package Telas;
 
+import Classes.*;
 import DAO.Comandos;
 import java.io.File;
 import java.io.FileWriter;

@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Telas;
+
+package Classes;
 
 /**
  *
@@ -13,13 +14,15 @@ public class Funcionario {
     private final String cpf;
     private final String cargo;
     private final String matricula;
+    private final String senha;
     
     
-    public Funcionario(String nome, String cpf, String cargo, String matricula){
+    public Funcionario(String nome, String cpf, String cargo, String matricula, String senha){
         this.nome = capitalize(nome);
         this.cpf = cpf;
         this.cargo = cargo;
         this.matricula = matricula;
+        this.senha = senha;
     }
 
     public String getNome() {
@@ -36,6 +39,10 @@ public class Funcionario {
 
     public String getMatricula() {
         return matricula;
+    }
+    
+    public String getSenha(){
+        return senha;
     }
     
     private String capitalize(String string){

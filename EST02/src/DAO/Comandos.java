@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
-import Telas.Funcionario;
+import Classes.Funcionario;
 import java.io.IOException;
 
 /**
@@ -24,14 +24,14 @@ public class Comandos {
     }
     
     
-    public void insertFuncionario(String nome, String senha, String cargo, String cpf) throws SQLException {
+    public void insertFuncionario(Funcionario funcionario) throws SQLException {
         String SQL = "INSERT INTO DEV.VENDEDOR (NOME, SENHA, CPF, CARGO) VALUES(?, ?, ?, ?)";
         
         try (PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
-            execQuery.setString(1, nome);
-            execQuery.setString(2, senha);
-            execQuery.setString(3, cpf);
-            execQuery.setString(4, cargo);
+            execQuery.setString(1, funcionario.getNome().toUpperCase());
+            execQuery.setString(2, funcionario.getSenha());
+            execQuery.setString(3, funcionario.getCpf());
+            execQuery.setString(4, funcionario.getCargo());
             
             execQuery.execute();
             conexao.commit();
@@ -39,41 +39,18 @@ public class Comandos {
     }
     
     public Funcionario login(String cpf, String senha) throws SQLException {
-        String SQL = "SELECT SENHA, NOME, CPF, CARGO, MATRICULA FROM DEV.VENDEDOR WHERE CPF = ?";
+        String SQL = "SELECT NOME, CPF, CARGO, MATRICULA, SENHA FROM DEV.VENDEDOR WHERE CPF = ?";
         Funcionario funcionario = null;
         
         try (PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
             execQuery.setString(1, cpf);
             
-            ResultSet senhaDB = execQuery.executeQuery();
-            while (senhaDB.next()){
-                if (senhaDB.getString(1).equals(senha)) {
-                    funcionario = new Funcionario(senhaDB.getString(2), senhaDB.getString(3), senhaDB.getString(4), senhaDB.getString(5));
-                }
+            ResultSet result = execQuery.executeQuery();
+            if (result.next() && result.getString(5).equals(senha)){
+                funcionario = new Funcionario(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
             }
         }
         return funcionario;
-    }
-    
-    public ArrayList<String> getFuncionario(String cpf) throws SQLException{
-        String nome = new String();
-        String matricula = new String();
-        String cargo = new String();
-        
-        String SQL = "SELECT NOME, MATRICULA, CARGO FROM DEV.VENDEDOR WHERE CPF = ?";
-        
-        try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
-            execQuery.setString(1, cpf);
-            
-            ResultSet rs = execQuery.executeQuery();
-            while (rs.next()){
-                nome = rs.getString(1);
-                matricula = rs.getString(2);
-                cargo = rs.getString(3);
-            }
-        }
-        
-        return new ArrayList<>(Arrays.asList(nome, matricula, cargo));
     }
     
     public DefaultTableModel getPedidosVendedor(String cpf, String idProduto, String idPedido, String nomeCliente, String dtIni, String dtFim, javax.swing.JTable table, String[] colunas) throws SQLException{     

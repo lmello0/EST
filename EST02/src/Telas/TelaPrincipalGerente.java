@@ -5,6 +5,7 @@
 package Telas;
 
 import DAO.Comandos;
+import Classes.*;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;

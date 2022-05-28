@@ -4,9 +4,10 @@
  */
 package Telas;
 
+import Classes.SHA512;
 import DAO.Comandos;
+import Classes.*;
 import java.awt.Color;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -408,7 +409,7 @@ public class TelaCadastro extends javax.swing.JDialog {
     }
 
     private void cadastrar() {
-        String nome = txtNome.getText().toUpperCase().trim();
+        String nome = txtNome.getText().trim().toUpperCase();
         String senha = String.valueOf(txtSenha.getPassword());
         String cargo = String.valueOf(cbCargo.getSelectedItem()).trim().toUpperCase();
         String cpf = String.valueOf(txtCPF.getText()).trim().replace(".", "").replace("-", "");
@@ -429,8 +430,10 @@ public class TelaCadastro extends javax.swing.JDialog {
         
         
         if (nomeValido && senhaValida && cpfValido) {
+            Funcionario funcionario = new Funcionario(nome, cpf, cargo, null, senha);
+            
             try {
-                comandos.insertFuncionario(nome, senha, cargo, cpf);
+                comandos.insertFuncionario(funcionario);
                 
                 JOptionPane.showConfirmDialog(null, "FUNCIONARIO INCLUÍDO!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 
