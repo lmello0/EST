@@ -159,7 +159,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 Funcionario funcionario = comandos.login(cpf, senha);
                 if (funcionario != null) {
                     if (funcionario.getCargo().equals("GERENTE") || funcionario.getCargo().equals("VENDEDOR")){
-                        new TelaPrincipalGerente(comandos, funcionario).setVisible(true);
+                        new TelaPrincipal(comandos, funcionario).setVisible(true);
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Cargo não registrado no sistema!\nFavor comunicar o gerente.", "Falha ao logar", JOptionPane.ERROR_MESSAGE);

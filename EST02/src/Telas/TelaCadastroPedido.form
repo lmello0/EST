@@ -271,7 +271,11 @@
                                       <Component id="spinQuantidade" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtValor" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="545" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="lblItensEstoque" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtItensEstoque" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -289,6 +293,8 @@
                               <Component id="lblQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="spinQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblItensEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtItensEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -299,7 +305,7 @@
                               <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtValor" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnLimpar" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="btnAdicionar" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -325,6 +331,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCodigoProdutoFocusLost"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoProdutoKeyReleased"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoProdutoKeyTyped"/>
                   </Events>
@@ -450,6 +457,16 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblItensEstoque">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Itens em estoque.:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtItensEstoque">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

@@ -21,12 +21,13 @@ import javax.swing.table.DefaultTableModel;
  * @author mello
  */
 public class TelaCadastroPedido extends javax.swing.JDialog {
-    Comandos comandos;
-    ArrayList<ArrayList<String>> itens;
-    ArrayList<String> nomesProdutos = new ArrayList<>();
-    boolean stateChange = true;
-    boolean addProduct = false;
-    float totalPedido = 0;
+    private Comandos comandos;
+    private ArrayList<Produto> itens;
+    private ArrayList<String> nomesProdutos = new ArrayList<>();
+    private boolean stateChange = true;
+    private float totalPedido = 0;
+    private Pedido pedido = new Pedido();
+    
     
     /**
      * Creates new form TelaCadastroPedido
@@ -37,6 +38,8 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
      */
     public TelaCadastroPedido(java.awt.Frame parent, boolean modal, Comandos comandos, Funcionario funcionario) {
         super(parent, modal);
+        this.comandos = comandos;
+        
         try {
             initComponents();
             
@@ -51,14 +54,16 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             itens = comandos.getProduto();
             
             // Para cada produto em 'itens' adiciona o nome a variavel 'nomesProdutos'
-            for (ArrayList<String> produtos : itens) {
-                nomesProdutos.add(produtos.get(1));
+            for (Produto produtos : itens) {
+                nomesProdutos.add(produtos.getNome());
             }
             
             // popula todas as comboBoxes
             popularComboBox(cbProduto, nomesProdutos);
             popularComboBox(cbCliente, comandos.getCliente());
             popularComboBox(cbVendedor, comandos.getVendedor());
+            
+            txtItensEstoque.setText(String.valueOf(itens.get(cbProduto.getSelectedIndex()).getQuantidade()-1));
             
             // seleciona o funcionario com base no nome
             cbVendedor.setSelectedItem(funcionario.getNome());
@@ -97,6 +102,8 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
         txtValor = new javax.swing.JTextField();
         btnAdicionar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+        lblItensEstoque = new javax.swing.JLabel();
+        txtItensEstoque = new javax.swing.JTextField();
         btnLimparPedido = new javax.swing.JButton();
         btnFecharPedido = new javax.swing.JButton();
 
@@ -169,6 +176,11 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
         lblCodigoProduto.setText("Código do produto.:");
 
         txtCodigoProduto.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        txtCodigoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoProdutoFocusLost(evt);
+            }
+        });
         txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoProdutoKeyReleased(evt);
@@ -227,6 +239,10 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             }
         });
 
+        lblItensEstoque.setText("Itens em estoque.:");
+
+        txtItensEstoque.setEditable(false);
+
         javax.swing.GroupLayout panelProdutoLayout = new javax.swing.GroupLayout(panelProduto);
         panelProduto.setLayout(panelProdutoLayout);
         panelProdutoLayout.setHorizontalGroup(
@@ -266,7 +282,11 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
                         .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(spinQuantidade)
                             .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 545, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblItensEstoque)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtItensEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelProdutoLayout.setVerticalGroup(
@@ -279,7 +299,9 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
                     .addComponent(lblProduto)
                     .addComponent(lblQuantidade)
                     .addComponent(spinQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblItensEstoque)
+                    .addComponent(txtItensEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCliente)
@@ -288,7 +310,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
                     .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblValor)
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLimpar)
                     .addComponent(btnAdicionar))
@@ -352,8 +374,9 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
     private void cbProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbProdutoItemStateChanged
         // se um novo produto for selecionado, muda o campo de codigo do produto e valor
         if(evt.getStateChange() == ItemEvent.SELECTED && stateChange){
-            txtCodigoProduto.setText(itens.get(cbProduto.getSelectedIndex()).get(0));
-            txtValor.setText("R$ " + itens.get(cbProduto.getSelectedIndex()).get(2));
+            txtCodigoProduto.setText(String.valueOf(itens.get(cbProduto.getSelectedIndex()).getCodigo()));
+            txtValor.setText("R$ " + itens.get(cbProduto.getSelectedIndex()).getValor());
+            txtItensEstoque.setText(String.valueOf(itens.get(cbProduto.getSelectedIndex()).getQuantidade()-1));
         }
     }//GEN-LAST:event_cbProdutoItemStateChanged
 
@@ -374,13 +397,23 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             stateChange = !stateChange;
             ArrayList<String> itensFiltrados = new ArrayList<>();
 
-            for (ArrayList<String> item : itens){
-                if (item.get(0).startsWith(id)){
-                    itensFiltrados.add(item.get(1));
+            for (Produto item : itens){
+                if (String.valueOf(item.getCodigo()).startsWith(id)){
+                    itensFiltrados.add(item.getNome());
                 }
             }
+            
             popularComboBox(cbProduto, itensFiltrados);
             cbProduto.setPreferredSize(tamanho);
+            
+            for (Produto produto : itens){
+                if (produto.getNome().equals(cbProduto.getSelectedItem())){
+                    txtValor.setText("R$ " + produto.getValor());
+                    txtItensEstoque.setText(String.valueOf(produto.getQuantidade()-1));
+                    break;
+                }
+            }
+            
         } else {
             stateChange = !stateChange;
             popularComboBox(cbProduto, nomesProdutos);
@@ -392,22 +425,35 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // metodo para adicionar produtos ao carrinho
         
-        // primeiro eh coletado os valores de todos os campos e eh feito o calculo do valor total, apos isso os valores sao adicionados no carrinho
+        // coleta das informacoes do pedido
         String id = txtCodigoProduto.getText();
-        String produto = cbProduto.getSelectedItem().toString();
+        String nomeProduto = cbProduto.getSelectedItem().toString();
         int quantidade = Integer.parseInt(spinQuantidade.getValue().toString());
         String cliente = cbCliente.getSelectedItem().toString();
         String vendedor = cbVendedor.getSelectedItem().toString();
         double valorUnit = Double.parseDouble(txtValor.getText().substring(2).strip());
         double valorTot = valorUnit * quantidade;
-
+        
+        // adiciona produto na tabela
         DefaultTableModel modelo = (DefaultTableModel) tablePedido.getModel();
-        modelo.addRow(new Object[]{id, produto, quantidade, cliente, vendedor, valorUnit, valorTot});
+        modelo.addRow(new Object[]{id, nomeProduto, quantidade, cliente, vendedor, valorUnit, valorTot});
 
+        // desabilita a escolha do cliente a partir de um item adicionado
         cbCliente.setEnabled(false);
         
+        // soma o valor total do pedido
         totalPedido += valorTot;
         lblPrecoTotal.setText("R$ " + totalPedido);
+
+        // adiciona o produto ao pedido
+        Produto produto = new Produto(Integer.parseInt(id), nomeProduto, quantidade, valorUnit, null);
+        pedido.addProduto(produto);
+        
+        // seta as configuracoes do pedido
+        pedido.setNewCodPedido();
+        pedido.setValor(totalPedido);
+        pedido.setCliente(cliente);
+        pedido.setVendedor(vendedor);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnLimparPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparPedidoActionPerformed
@@ -431,15 +477,34 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
 
     private void btnFecharPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharPedidoActionPerformed
         // metodo para fechar o pedido e consequentemente registrar o pedido no banco
+                
         if (tablePedido.getRowCount() != 0){
-            JOptionPane.showMessageDialog(null, "Pedido registrado!", null, JOptionPane.INFORMATION_MESSAGE);
+            try {
+                comandos.insertPedido(pedido);
+                JOptionPane.showMessageDialog(null, "Pedido registrado!", null, JOptionPane.INFORMATION_MESSAGE);
+                
+                btnLimparPedido.doClick();
+                btnLimpar.doClick();
+                pedido = new Pedido();
+            } catch (SQLException ex) {
+                if (ex.getErrorCode() == 2290){
+                    JOptionPane.showMessageDialog(null, "O produto não está disponível nessa quantidade", null, JOptionPane.ERROR_MESSAGE);
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(null, "O carrinho está vazio!", null, JOptionPane.WARNING_MESSAGE);
-        }
-        
-        btnLimparPedido.doClick();
-        btnLimpar.doClick();
+        }    
     }//GEN-LAST:event_btnFecharPedidoActionPerformed
+
+    private void txtCodigoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoProdutoFocusLost
+        String codigo = txtCodigoProduto.getText();
+        
+        if (!codigo.equals("")){
+            String nomeProduto = (String) cbProduto.getSelectedItem();
+            
+            
+        }
+    }//GEN-LAST:event_txtCodigoProdutoFocusLost
 
     private void popularComboBox(javax.swing.JComboBox<String> comboBox, ArrayList<String> itens){
         // metodo que popula as comboBoxes com base numa lista
@@ -448,7 +513,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             comboBox.addItem(item);
         }
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnFecharPedido;
@@ -459,6 +524,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbVendedor;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblCodigoProduto;
+    private javax.swing.JLabel lblItensEstoque;
     private javax.swing.JLabel lblPrecoTotal;
     private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblQuantidade;
@@ -473,6 +539,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
     private javax.swing.JSpinner spinQuantidade;
     private javax.swing.JTable tablePedido;
     private javax.swing.JTextField txtCodigoProduto;
+    private javax.swing.JTextField txtItensEstoque;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

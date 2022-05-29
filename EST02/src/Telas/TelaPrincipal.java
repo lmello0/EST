@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author mello
  */
-public class TelaPrincipalGerente extends javax.swing.JFrame {
+public class TelaPrincipal extends javax.swing.JFrame {
     Comandos comandos;
     Funcionario funcionario;
     String[] colunas = {"PEDIDO", "PRODUTO", "QUANTIDADE", "CLIENTE", "DATA DO PEDIDO", "VALOR", "VALOR TOTAL", "VENDEDOR"};
@@ -25,7 +25,7 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
      * @param funcionario
      * @throws java.sql.SQLException
      */
-    public TelaPrincipalGerente(Comandos comandos, Funcionario funcionario) throws SQLException {
+    public TelaPrincipal(Comandos comandos, Funcionario funcionario) throws SQLException {
         this.comandos = comandos;
         this.funcionario = funcionario;
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Imagens/icon.png")));
@@ -45,7 +45,11 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
         }
         
         // popula a tabela com o historico dos pedidos do funcionario
-        tablePedidos.setModel(comandos.getPedidosVendedor(funcionario.getCpf(), null, null, null, null, null, tablePedidos, colunas));
+        if (!funcionario.getCargo().equals("GERENTE")){
+            tablePedidos.setModel(comandos.getPedidosVendedor(funcionario.getCpf(), null, null, null, null, null, tablePedidos, colunas));
+        } else {
+            tablePedidos.setModel(comandos.getPedidosVendedor(null, null, null, null, null, null, tablePedidos, colunas));
+        }
     }
 
     /**
@@ -160,6 +164,11 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
 
         btnCadastrarProdutos.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnCadastrarProdutos.setText("Cadastrar produtos");
+        btnCadastrarProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarProdutosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelGeralLayout = new javax.swing.GroupLayout(panelGeral);
         panelGeral.setLayout(panelGeralLayout);
@@ -241,7 +250,11 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
 
         if (isNumber(entrada) || entrada.isEmpty()) {        
             try {
-                tablePedidos.setModel(comandos.getPedidosVendedor(funcionario.getCpf(), null, entrada, null, null, null, tablePedidos, colunas));
+                if (!funcionario.getCargo().equals("GERENTE")){
+                    tablePedidos.setModel(comandos.getPedidosVendedor(funcionario.getCpf(), null, entrada, null, null, null, tablePedidos, colunas));
+                } else {
+                    tablePedidos.setModel(comandos.getPedidosVendedor(null, null, entrada, null, null, null, tablePedidos, colunas));
+                }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex, null, JOptionPane.ERROR_MESSAGE);
             }
@@ -259,14 +272,14 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
             try {
                 new TelaLogin(comandos).setVisible(true);
             } catch (SQLException ex) {
-                Logger.getLogger(TelaPrincipalGerente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
         // abre tela para cadastro de funcionario
-        new TelaCadastro(this, true, comandos).setVisible(true);
+        new TelaCadastroVendedor(this, true, comandos).setVisible(true);
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
@@ -278,6 +291,11 @@ public class TelaPrincipalGerente extends javax.swing.JFrame {
         // abre a tela para cadastro de um novo pedido
         new TelaCadastroPedido(this, true, comandos, funcionario).setVisible(true);
     }//GEN-LAST:event_btnNovoPedidoActionPerformed
+
+    private void btnCadastrarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutosActionPerformed
+        //abre a tela para cadastro de produtos
+        new TelaCadastroProdutos(this, true, comandos).setVisible(true);
+    }//GEN-LAST:event_btnCadastrarProdutosActionPerformed
     
     private boolean isNumber(String string){
         // checa se a string eh um integer

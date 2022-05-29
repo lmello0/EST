@@ -20,7 +20,7 @@ import javax.swing.JTextField;
  *
  * @author mello
  */
-public class TelaCadastro extends javax.swing.JDialog {
+public class TelaCadastroVendedor extends javax.swing.JDialog {
     Comandos comandos;
     private float[] green = new float[3];
     private boolean verSenha = false;
@@ -31,7 +31,7 @@ public class TelaCadastro extends javax.swing.JDialog {
      * @param modal
      * @param comandos
      */
-    public TelaCadastro(java.awt.Frame parent, boolean modal, Comandos comandos) {
+    public TelaCadastroVendedor(java.awt.Frame parent, boolean modal, Comandos comandos) {
         super(parent, modal);
         this.comandos = comandos;
         initComponents();
@@ -425,7 +425,7 @@ public class TelaCadastro extends javax.swing.JDialog {
         try {
             senha = hash.toHexStr(hash.obtainSHA(senha));
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaCadastroVendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

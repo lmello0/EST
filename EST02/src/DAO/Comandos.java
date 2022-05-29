@@ -6,10 +6,13 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 import Classes.Funcionario;
+import Classes.Pedido;
+import Classes.Produto;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +38,6 @@ public class Comandos {
             
             execQuery.execute();
             conexao.commit();
-            // comentario
         }
     }
     
@@ -115,32 +117,70 @@ public class Comandos {
         return items;
     }
     
-    public ArrayList<ArrayList<String>> getProduto() throws SQLException{
-        String SQL = "SELECT COD_PRODUTO, NOME, VALOR FROM DEV.PRODUTO ORDER BY COD_PRODUTO";
-        ArrayList<ArrayList<String>> itens = new ArrayList<>();
+    public ArrayList<Produto> getProduto() throws SQLException{
+        String SQL = "SELECT COD_PRODUTO, NOME, VALOR, QUANTIDADE, DESCRICAO FROM DEV.PRODUTO ORDER BY COD_PRODUTO";
+        ArrayList<Produto> itens = new ArrayList<>();
 
         try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
             ResultSet rs = execQuery.executeQuery();
 
             while (rs.next()){
-                ArrayList<String> item = new ArrayList<>();
-                
-                String id = rs.getString(1);
+                int codigo = rs.getInt(1);
                 String nome = rs.getString(2);
-                String valor = rs.getString(3);
+                double valor = rs.getDouble(3);
+                int quantidade = rs.getInt(4);
+                String descricao = rs.getString(5);
                 
-                item.add(id);
-                item.add(nome);
-                item.add(valor);
-                
-                itens.add(item);
+                itens.add(new Produto(codigo, nome, quantidade, valor, descricao));
             }
         }
         
         return itens;
     }
     
+    public long insertProduto(Produto produto) throws SQLException {
+        String pk[] = {"COD_PRODUTO"};
+        String SQL = "INSERT INTO DEV.PRODUTO(NOME, QUANTIDADE, VALOR, DESCRICAO) VALUES(?, ?, ?, ?)";
+        long codigoProduto = 0;
+        
+        try (PreparedStatement execQuery = conexao.prepareStatement(SQL, pk)){
+            execQuery.setString(1, produto.getNome());
+            execQuery.setInt(2, produto.getQuantidade());
+            execQuery.setDouble(3, produto.getValor());
+            execQuery.setString(4, produto.getDescricao());
+            
+            execQuery.executeUpdate();
+            
+            ResultSet rs = execQuery.getGeneratedKeys();
+            if (rs.next())
+                codigoProduto = rs.getLong(1);
+        }
+        
+        conexao.commit();
+        return codigoProduto;
+    }
+    
+    public void insertPedido(Pedido pedido) throws SQLException {
+        String SQL = "{CALL DEV.SP_EXECUTA_PEDIDO(?, ?, ?, ?, ?, ?)}";
+        
+        try (PreparedStatement execQuery = conexao.prepareCall(SQL)){
+            for (Produto produto : pedido.getProdutos()){
+                execQuery.setInt(1, produto.getCodigo());
+                execQuery.setInt(2, produto.getQuantidade());
+                execQuery.setString(3, pedido.getCliente());
+                execQuery.setString(4, pedido.getVendedor());
+                execQuery.setDouble(5, pedido.getValor());
+                execQuery.setInt(6, pedido.getCodPedido());
+                
+                execQuery.executeUpdate();
+            }
+        }
+        
+        conexao.commit();
+    }
+    
     public void closeConnection() throws SQLException{
         conexao.close();
     }
+
 }
