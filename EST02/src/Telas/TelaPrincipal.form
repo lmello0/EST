@@ -66,7 +66,9 @@
                               <Component id="lblFuncionarioStatic" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lblFuncionario" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="btnCadastrarCliente" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnCadastrarProdutos" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnCadastrarFuncionario" min="-2" max="-2" attributes="0"/>
@@ -99,13 +101,14 @@
                               <Component id="btnRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnCadastrarFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnCadastrarProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCadastrarCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Component id="lblFuncionario" alignment="0" max="32767" attributes="0"/>
                               <Component id="lblFuncionarioStatic" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="lblMatriculaStatic" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblMatricula" alignment="0" min="-2" pref="16" max="-2" attributes="0"/>
@@ -118,7 +121,7 @@
                           <Component id="lblBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTablePedidos" pref="462" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTablePedidos" pref="460" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -309,6 +312,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarProdutosActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnCadastrarCliente">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastrar cliente"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarClienteActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

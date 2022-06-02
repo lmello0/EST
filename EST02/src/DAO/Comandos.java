@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Classes.Funcionario;
 import Classes.Pedido;
+import Classes.Cliente;
 import Classes.Produto;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -178,6 +179,21 @@ public class Comandos {
         
         conexao.commit();
     }
+    
+     public void insertCliente(Cliente cliente) throws SQLException {
+        String SQL = "INSERT INTO DEV.CLIENTE (NOME, DOC_TYPE, DOC_NUM) VALUES(?, ?, ?)";
+        
+        try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
+            execQuery.setString(1, cliente.getNome());
+            execQuery.setString(2, cliente.getDocType());
+            execQuery.setString(3, cliente.getDocNum());
+            
+            execQuery.executeUpdate();
+            
+        }
+        
+        conexao.commit();
+     }
     
     public void closeConnection() throws SQLException{
         conexao.close();

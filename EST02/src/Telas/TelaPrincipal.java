@@ -39,6 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (!funcionario.getCargo().equals("GERENTE")){
             btnCadastrarProdutos.setEnabled(false);
             btnCadastrarFuncionario.setEnabled(false);
+            btnCadastrarCliente.setEnabled(false);
             
             colunas = removeIndexFromArray(colunas, "VENDEDOR");
             
@@ -78,6 +79,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblBuscar = new javax.swing.JLabel();
         btnCadastrarFuncionario = new javax.swing.JButton();
         btnCadastrarProdutos = new javax.swing.JButton();
+        btnCadastrarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EST 1.0");
@@ -170,6 +172,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnCadastrarCliente.setText("Cadastrar cliente");
+        btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelGeralLayout = new javax.swing.GroupLayout(panelGeral);
         panelGeral.setLayout(panelGeralLayout);
         panelGeralLayout.setHorizontalGroup(
@@ -190,7 +199,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(lblFuncionarioStatic)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnCadastrarCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrarProdutos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrarFuncionario)
@@ -217,11 +228,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(btnNovoPedido)
                         .addComponent(btnRelatorio)
                         .addComponent(btnCadastrarFuncionario)
-                        .addComponent(btnCadastrarProdutos))
+                        .addComponent(btnCadastrarProdutos)
+                        .addComponent(btnCadastrarCliente))
                     .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(lblFuncionario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblFuncionarioStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
                 .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(lblMatriculaStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMatricula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -232,7 +244,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTablePedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(scrollPaneTablePedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -296,6 +308,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //abre a tela para cadastro de produtos
         new TelaCadastroProdutos(this, true, comandos).setVisible(true);
     }//GEN-LAST:event_btnCadastrarProdutosActionPerformed
+
+    private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
+        //abre a tela para cadastro de cliente
+        new TelaCadastroCliente(this, rootPaneCheckingEnabled, comandos).setVisible(true);
+    }//GEN-LAST:event_btnCadastrarClienteActionPerformed
     
     private boolean isNumber(String string){
         // checa se a string eh um integer
@@ -324,6 +341,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCadastrarFuncionario;
     private javax.swing.JButton btnCadastrarProdutos;
     private javax.swing.JButton btnNovoPedido;
