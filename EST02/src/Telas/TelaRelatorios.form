@@ -92,6 +92,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lblDtIni">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Data inicial.:"/>
               </Properties>
             </Component>
@@ -109,6 +112,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblDtFim">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Data final.:"/>
               </Properties>
             </Component>
@@ -123,6 +129,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnBuscar">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
               <Events>
@@ -131,6 +140,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnDownload">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Downlod relat&#xf3;rio"/>
               </Properties>
               <Events>

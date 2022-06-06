@@ -9,6 +9,7 @@ import DAO.Comandos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,29 +36,25 @@ public class TelaCadastroCliente extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNomeCliente = new javax.swing.JLabel();
-        txtNomeCliente = new javax.swing.JTextField();
-        lblDocType = new javax.swing.JLabel();
-        cbDocType = new javax.swing.JComboBox<>();
-        lblDocNum = new javax.swing.JLabel();
-        txtDocNum = new javax.swing.JTextField();
         lblTitulo = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        lblNomeCliente = new javax.swing.JLabel();
+        lblDocType = new javax.swing.JLabel();
+        txtDocNum = new javax.swing.JTextField();
+        cbDocType = new javax.swing.JComboBox<>();
+        txtNomeCliente = new javax.swing.JTextField();
+        lblDocNum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        lblNomeCliente.setText("Nome do cliente.:");
-
-        lblDocType.setText("Documento.:");
-
-        cbDocType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "CNPJ" }));
-
-        lblDocNum.setText("Número doc.:");
-
+        lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Registro de cliente");
 
+        btnCadastrar.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,60 +62,96 @@ public class TelaCadastroCliente extends javax.swing.JDialog {
             }
         });
 
+        btnLimpar.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        lblNomeCliente.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblNomeCliente.setText("Nome do cliente.:");
+
+        lblDocType.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblDocType.setText("Documento.:");
+
+        txtDocNum.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+
+        cbDocType.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        cbDocType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "CNPJ" }));
+
+        txtNomeCliente.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+
+        lblDocNum.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblDocNum.setText("Número doc.:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblNomeCliente)
+                            .addComponent(lblDocType))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNomeCliente)
+                            .addComponent(cbDocType, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblDocNum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDocNum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNomeCliente)
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDocType)
+                    .addComponent(cbDocType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDocNum)
+                    .addComponent(txtDocNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNomeCliente)
-                            .addComponent(lblDocType))
+                        .addComponent(btnCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNomeCliente)
-                            .addComponent(cbDocType, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnCadastrar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnLimpar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblDocNum)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtDocNum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(57, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitulo)
-                .addGap(101, 101, 101))
+                        .addComponent(btnLimpar))
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(64, 64, 64)
                 .addComponent(lblTitulo)
-                .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeCliente)
-                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDocType)
-                    .addComponent(cbDocType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDocNum)
-                    .addComponent(txtDocNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnLimpar))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         pack();
@@ -133,20 +166,45 @@ public class TelaCadastroCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtNomeCliente.setText(null);
+        cbDocType.setSelectedIndex(0);
+        txtDocNum.setText(null);
+    }//GEN-LAST:event_btnLimparActionPerformed
+
     private void cadastrarCliente() throws SQLException{
-        String nomeCliente = txtNomeCliente.getText();
+        String nomeCliente = txtNomeCliente.getText().toUpperCase();
         String docType = cbDocType.getSelectedItem().toString();
         String docNum = txtDocNum.getText();
         
-        Cliente cliente = new Cliente(nomeCliente, docType, docNum);
+        if (validaDoc(docNum, docType)){
+            Cliente cliente = new Cliente(nomeCliente, docType, docNum);
+
+            comandos.insertCliente(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente " + nomeCliente + " registrado", null, JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    private boolean validaDoc(String docNum, String docType) {
+        if (docNum.isEmpty()){
+            JOptionPane.showConfirmDialog(null, "O documento não pode ser nulo!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (!docNum.matches("([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})") && docType.equals("CPF")){
+            JOptionPane.showConfirmDialog(null, "O CPF não tem um formato válido!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (!docNum.matches("([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[\\-]?[0-9]{2})") && docType.equals("CNPJ")){
+            JOptionPane.showConfirmDialog(null, "O CNPJ não tem um formato válido!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         
-        comandos.insertCliente(cliente);
+        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JComboBox<String> cbDocType;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDocNum;
     private javax.swing.JLabel lblDocType;
     private javax.swing.JLabel lblNomeCliente;

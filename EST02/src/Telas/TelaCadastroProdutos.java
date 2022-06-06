@@ -69,8 +69,10 @@ public class TelaCadastroProdutos extends javax.swing.JDialog {
 
         panelBorder1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lblProdutosRegistrados.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblProdutosRegistrados.setText("Produtos registrados");
 
+        tableProdutos.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -105,21 +107,27 @@ public class TelaCadastroProdutos extends javax.swing.JDialog {
 
         panelBorder2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lblNomeProduto.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblNomeProduto.setText("Nome do Produto:");
 
+        txtNomeProduto.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         txtNomeProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNomeProdutoKeyTyped(evt);
             }
         });
 
+        spinQuantidade.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         spinQuantidade.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        lblDescricao.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblDescricao.setText("Descrição: ");
 
+        lblValor.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblValor.setText("Valor:");
 
         txtDescricao.setColumns(20);
+        txtDescricao.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         txtDescricao.setRows(5);
         scrollDescricao.setViewportView(txtDescricao);
 
@@ -143,7 +151,7 @@ public class TelaCadastroProdutos extends javax.swing.JDialog {
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addComponent(lblDescricao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
+                        .addComponent(scrollDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addComponent(lblNomeProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -178,6 +186,7 @@ public class TelaCadastroProdutos extends javax.swing.JDialog {
 
         panelBorder3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnRegistro.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnRegistro.setText("Registrar produto");
         btnRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,6 +194,7 @@ public class TelaCadastroProdutos extends javax.swing.JDialog {
             }
         });
 
+        btnLimpar.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

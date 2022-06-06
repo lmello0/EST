@@ -80,6 +80,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCadastrarFuncionario = new javax.swing.JButton();
         btnCadastrarProdutos = new javax.swing.JButton();
         btnCadastrarCliente = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EST 1.0");
@@ -118,7 +119,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         btnRelatorio.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        btnRelatorio.setText("Relatórios");
+        btnRelatorio.setText("Relatório de venda");
         btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRelatorioActionPerformed(evt);
@@ -179,6 +180,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Estoque");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelGeralLayout = new javax.swing.GroupLayout(panelGeral);
         panelGeral.setLayout(panelGeralLayout);
         panelGeralLayout.setHorizontalGroup(
@@ -196,13 +204,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar))
                     .addGroup(panelGeralLayout.createSequentialGroup()
+                        .addComponent(lblMatriculaStatic)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGeralLayout.createSequentialGroup()
                         .addComponent(lblFuncionarioStatic)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(12, 12, 12)
+                        .addGap(33, 33, 33)
                         .addComponent(btnCadastrarCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrarProdutos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrarFuncionario)
                         .addGap(12, 12, 12)
@@ -210,12 +225,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnNovoPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSair))
-                    .addGroup(panelGeralLayout.createSequentialGroup()
-                        .addComponent(lblMatriculaStatic)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnSair)))
                 .addContainerGap())
         );
         panelGeralLayout.setVerticalGroup(
@@ -229,7 +239,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(btnRelatorio)
                         .addComponent(btnCadastrarFuncionario)
                         .addComponent(btnCadastrarProdutos)
-                        .addComponent(btnCadastrarCliente))
+                        .addComponent(btnCadastrarCliente)
+                        .addComponent(jButton1))
                     .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(lblFuncionario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblFuncionarioStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -313,6 +324,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //abre a tela para cadastro de cliente
         new TelaCadastroCliente(this, rootPaneCheckingEnabled, comandos).setVisible(true);
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // abre a tela para consulta e extração do estoque
+        new TelaEstoque(this, rootPaneCheckingEnabled, comandos).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     private boolean isNumber(String string){
         // checa se a string eh um integer
@@ -347,6 +363,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNovoPedido;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblFuncionarioStatic;

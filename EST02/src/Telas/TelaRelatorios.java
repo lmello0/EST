@@ -93,18 +93,21 @@ public class TelaRelatorios extends javax.swing.JDialog {
 
         panelGeral.setMinimumSize(new java.awt.Dimension(858, 560));
 
+        lblDtIni.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblDtIni.setText("Data inicial.:");
 
         txtDtIni.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         txtDtIni.setToolTipText("DD/MM/YYYY");
         txtDtIni.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
+        lblDtFim.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblDtFim.setText("Data final.:");
 
         txtDtFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         txtDtFim.setToolTipText("DD/MM/YYYY");
         txtDtFim.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
+        btnBuscar.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +115,7 @@ public class TelaRelatorios extends javax.swing.JDialog {
             }
         });
 
+        btnDownload.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnDownload.setText("Downlod relatório");
         btnDownload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

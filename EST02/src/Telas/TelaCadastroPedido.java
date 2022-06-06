@@ -501,8 +501,6 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
         
         if (!codigo.equals("")){
             String nomeProduto = (String) cbProduto.getSelectedItem();
-            
-            
         }
     }//GEN-LAST:event_txtCodigoProdutoFocusLost
 
