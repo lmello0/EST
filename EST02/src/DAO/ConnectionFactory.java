@@ -26,9 +26,8 @@ public final class ConnectionFactory {
     public DataSource dataSource;
     
     public ConnectionFactory() throws FileNotFoundException, IOException {
-        String configFilePath = "src/config.properties";
-        Properties props = new Properties();
-        props.load(new FileInputStream(configFilePath));
+        Properties props = new Properties();       
+        props.load(getClass().getResourceAsStream("config.properties"));
         
         getDbUrl(props);
         
