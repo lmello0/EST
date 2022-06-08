@@ -6,7 +6,6 @@ package Telas;
 
 import Classes.*;
 import DAO.Comandos;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +13,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Imagens.Imagem;
 
 /**
  *
@@ -28,7 +28,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin(Comandos comandos) throws SQLException{
         initComponents();
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Imagens/icon.png")));
+        this.setIconImage(new Imagem().getImage("icon.png"));
         
         this.comandos = comandos;
     }

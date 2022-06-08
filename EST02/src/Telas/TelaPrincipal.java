@@ -6,6 +6,7 @@ package Telas;
 
 import DAO.Comandos;
 import Classes.*;
+import Imagens.Imagem;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -28,7 +29,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal(Comandos comandos, Funcionario funcionario) throws SQLException {
         this.comandos = comandos;
         this.funcionario = funcionario;
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Imagens/icon.png")));
+        this.setIconImage(new Imagem().getImage("icon.png"));
         initComponents();
 
         // seta o nome e a matricula do funcionario na tela
