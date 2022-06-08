@@ -10,11 +10,8 @@ import java.sql.SQLException;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Properties;
 import javax.sql.DataSource;
 import javax.swing.JFileChooser;
@@ -56,9 +53,7 @@ public final class ConnectionFactory {
             props.setProperty("DB_PASS", JOptionPane.showInputDialog("PASSWORD"));
             
             if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION){
-                String wallet = "jdbc:oracle:thin:@estocagem01_high?TNS_ADMIN=";
-                wallet = chooser.getSelectedFile().toString().replace("\\", "//");
-                System.out.println(wallet);
+                String wallet = chooser.getSelectedFile().toString().replace("\\", "//");
                 
                 props.setProperty("DB_URL", wallet);
             }
