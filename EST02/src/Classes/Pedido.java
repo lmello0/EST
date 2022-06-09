@@ -29,7 +29,7 @@ public class Pedido {
     }
     
     public Pedido(double valor, String cliente, String vendedor, Produto produto) {
-        this.codPedido = new Random().nextInt();
+        this.codPedido = new Random().nextInt(Integer.SIZE - 1);
         this.valor = valor;
         this.cliente = cliente;
         this.vendedor = vendedor;

@@ -23,7 +23,7 @@ import javax.swing.table.TableModel;
  *
  * @author mello
  */
-public class TelaRelatorios extends javax.swing.JDialog {
+public class TelaRelatorioVenda extends javax.swing.JDialog {
     Comandos comandos;
     Funcionario funcionario;
     String[] colunas;
@@ -34,7 +34,7 @@ public class TelaRelatorios extends javax.swing.JDialog {
      * @param comandos
      * @param funcionario
      */
-    public TelaRelatorios(java.awt.Frame parent, boolean modal, Comandos comandos, Funcionario funcionario) {
+    public TelaRelatorioVenda(java.awt.Frame parent, boolean modal, Comandos comandos, Funcionario funcionario) {
         super(parent, modal);
         this.comandos = comandos;
         this.funcionario = funcionario;
@@ -244,7 +244,7 @@ public class TelaRelatorios extends javax.swing.JDialog {
 
                     JOptionPane.showMessageDialog(null, "Relatorio exportado para\n" + filename, null, JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
-                    Logger.getLogger(TelaRelatorios.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TelaRelatorioVenda.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {

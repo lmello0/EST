@@ -48,6 +48,8 @@ public class TelaEstoque extends javax.swing.JDialog {
             popularComboBox(cbProdutos, nomesProdutos);
             
             popularTabelaProdutos(itens, "");
+            
+            txtCodigoProduto.setText(null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
         }
@@ -69,7 +71,7 @@ public class TelaEstoque extends javax.swing.JDialog {
         cbProdutos = new javax.swing.JComboBox<>();
         scrollTabela = new javax.swing.JScrollPane();
         tableEstoque = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnBaixarSaldo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -109,10 +111,10 @@ public class TelaEstoque extends javax.swing.JDialog {
         ));
         scrollTabela.setViewportView(tableEstoque);
 
-        jButton1.setText("Baixar saldo de estoque");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBaixarSaldo.setText("Baixar saldo de estoque");
+        btnBaixarSaldo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBaixarSaldoActionPerformed(evt);
             }
         });
 
@@ -132,7 +134,7 @@ public class TelaEstoque extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 468, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(btnBaixarSaldo))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(scrollTabela)))
@@ -147,7 +149,7 @@ public class TelaEstoque extends javax.swing.JDialog {
                     .addComponent(cbProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProduto)
                     .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnBaixarSaldo))
                 .addGap(18, 18, 18)
                 .addComponent(scrollTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                 .addContainerGap())
@@ -200,22 +202,9 @@ public class TelaEstoque extends javax.swing.JDialog {
             stateChange = !stateChange;
             popularComboBox(cbProdutos, nomesProdutos);
             cbProdutos.setSelectedIndex(0);
-            
-//            try {
-//                popularTabelaProdutos(itens, "");
-//            } catch (SQLException ex) {
-//                JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
-//            }
         }
         stateChange = !stateChange;
     }//GEN-LAST:event_txtCodigoProdutoKeyReleased
-
-    private void txtCodigoProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyTyped
-        char letra = evt.getKeyChar();
-        if (((letra < '0') || (letra > '9')) && (letra != KeyEvent.VK_BACK_SPACE)){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtCodigoProdutoKeyTyped
 
     private void cbProdutosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbProdutosItemStateChanged
         String codigo;
@@ -232,7 +221,7 @@ public class TelaEstoque extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cbProdutosItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBaixarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaixarSaldoActionPerformed
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmm");
         String filename = "SALDO_ESTOQUE_EST_" + formatter.format(new Date()) + ".csv";
         
@@ -257,7 +246,14 @@ public class TelaEstoque extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBaixarSaldoActionPerformed
+
+    private void txtCodigoProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyTyped
+        char letra = evt.getKeyChar();
+        if (((letra < '0') || (letra > '9')) && (letra != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoProdutoKeyTyped
 
     private void popularComboBox(javax.swing.JComboBox<String> comboBox, ArrayList<String> itens){
         // metodo que popula as comboBoxes com base numa lista
@@ -324,8 +320,8 @@ public class TelaEstoque extends javax.swing.JDialog {
         return modelo;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBaixarSaldo;
     private javax.swing.JComboBox<String> cbProdutos;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblCodigoProduto;
     private javax.swing.JLabel lblProduto;
     private javax.swing.JPanel panelPrincipal;

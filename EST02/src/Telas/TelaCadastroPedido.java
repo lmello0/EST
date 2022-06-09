@@ -28,14 +28,6 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
     private float totalPedido = 0;
     private Pedido pedido = new Pedido();
     
-    
-    /**
-     * Creates new form TelaCadastroPedido
-     * @param parent
-     * @param modal
-     * @param comandos
-     * @param funcionario
-     */
     public TelaCadastroPedido(java.awt.Frame parent, boolean modal, Comandos comandos, Funcionario funcionario) {
         super(parent, modal);
         this.comandos = comandos;
@@ -106,6 +98,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
         txtItensEstoque = new javax.swing.JTextField();
         btnLimparPedido = new javax.swing.JButton();
         btnFecharPedido = new javax.swing.JButton();
+        btnRemoverItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Novo pedido");
@@ -176,11 +169,6 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
         lblCodigoProduto.setText("Código do produto.:");
 
         txtCodigoProduto.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        txtCodigoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCodigoProdutoFocusLost(evt);
-            }
-        });
         txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoProdutoKeyReleased(evt);
@@ -333,6 +321,13 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             }
         });
 
+        btnRemoverItem.setText("Remover item");
+        btnRemoverItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverItemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelGeralLayout = new javax.swing.GroupLayout(panelGeral);
         panelGeral.setLayout(panelGeralLayout);
         panelGeralLayout.setHorizontalGroup(
@@ -344,6 +339,8 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
                     .addComponent(panelPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGeralLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRemoverItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFecharPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimparPedido)))
@@ -359,7 +356,8 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimparPedido)
-                    .addComponent(btnFecharPedido))
+                    .addComponent(btnFecharPedido)
+                    .addComponent(btnRemoverItem))
                 .addGap(12, 12, 12))
         );
 
@@ -496,13 +494,21 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
         }    
     }//GEN-LAST:event_btnFecharPedidoActionPerformed
 
-    private void txtCodigoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoProdutoFocusLost
-        String codigo = txtCodigoProduto.getText();
+    private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
+        int row = tablePedido.getSelectedRow();
+        float valor = Float.parseFloat(tablePedido.getValueAt(row, 5).toString());
         
-        if (!codigo.equals("")){
-            String nomeProduto = (String) cbProduto.getSelectedItem();
+        totalPedido -= valor;
+        lblPrecoTotal.setText("R$ " + totalPedido);
+        pedido.setValor(totalPedido);
+        
+        DefaultTableModel modelo = (DefaultTableModel) tablePedido.getModel();
+        modelo.removeRow(row);
+        
+        if (tablePedido.getRowCount() == 0) {
+            cbCliente.setEnabled(true);
         }
-    }//GEN-LAST:event_txtCodigoProdutoFocusLost
+    }//GEN-LAST:event_btnRemoverItemActionPerformed
 
     private void popularComboBox(javax.swing.JComboBox<String> comboBox, ArrayList<String> itens){
         // metodo que popula as comboBoxes com base numa lista
@@ -517,6 +523,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
     private javax.swing.JButton btnFecharPedido;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnLimparPedido;
+    private javax.swing.JButton btnRemoverItem;
     private javax.swing.JComboBox<String> cbCliente;
     private javax.swing.JComboBox<String> cbProduto;
     private javax.swing.JComboBox<String> cbVendedor;

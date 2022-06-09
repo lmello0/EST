@@ -81,7 +81,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCadastrarFuncionario = new javax.swing.JButton();
         btnCadastrarProdutos = new javax.swing.JButton();
         btnCadastrarCliente = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnEstoque = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EST 1.0");
@@ -181,10 +181,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Estoque");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEstoque.setText("Estoque");
+        btnEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEstoqueActionPerformed(evt);
             }
         });
 
@@ -218,7 +218,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrarProdutos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnEstoque)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrarFuncionario)
                         .addGap(12, 12, 12)
@@ -241,7 +241,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(btnCadastrarFuncionario)
                         .addComponent(btnCadastrarProdutos)
                         .addComponent(btnCadastrarCliente)
-                        .addComponent(jButton1))
+                        .addComponent(btnEstoque))
                     .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(lblFuncionario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblFuncionarioStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -308,7 +308,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
         // abre a tela de relatorios
-        new TelaRelatorios(this, true, comandos, funcionario).setVisible(true);
+        new TelaRelatorioVenda(this, true, comandos, funcionario).setVisible(true);
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void btnNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPedidoActionPerformed
@@ -326,10 +326,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaCadastroCliente(this, rootPaneCheckingEnabled, comandos).setVisible(true);
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
         // abre a tela para consulta e extração do estoque
         new TelaEstoque(this, rootPaneCheckingEnabled, comandos).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnEstoqueActionPerformed
     
     private boolean isNumber(String string){
         // checa se a string eh um integer
@@ -346,9 +346,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         String[] arrayApoio = new String[array.length - 1];
         
         for (int i = 0; i < array.length; i++){
-            if (array[i].toUpperCase().equals(element.toUpperCase())){
-                continue;
-            } else {
+            if (!array[i].toUpperCase().equals(element.toUpperCase())){
                 arrayApoio[i] = array[i];
             }
         }
@@ -361,10 +359,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCadastrarFuncionario;
     private javax.swing.JButton btnCadastrarProdutos;
+    private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnNovoPedido;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblFuncionarioStatic;
