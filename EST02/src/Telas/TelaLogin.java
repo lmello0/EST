@@ -239,7 +239,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 try {
                     new TelaLogin(comandos).setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

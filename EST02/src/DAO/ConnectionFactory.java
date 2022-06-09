@@ -16,6 +16,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 
 /**
@@ -50,7 +51,12 @@ public final class ConnectionFactory {
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             
             props.setProperty("DB_USER", JOptionPane.showInputDialog("USER"));
-            props.setProperty("DB_PASS", JOptionPane.showInputDialog("PASSWORD"));
+            
+            JPasswordField password = new JPasswordField();
+            int jopt = JOptionPane.showConfirmDialog(null, password, "SENHA", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            
+            if (jopt == JOptionPane.OK_OPTION)
+                props.setProperty("DB_PASS", new String(password.getPassword()));
             
             if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION){
                 String wallet = chooser.getSelectedFile().toString().replace("\\", "//");
@@ -67,12 +73,5 @@ public final class ConnectionFactory {
     
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
-    }
-    
-    public static void main(String[] args) throws IOException, SQLException {
-        ConnectionFactory cf = new ConnectionFactory();
-        cf.getConnection();
-        
-        
     }
 }
