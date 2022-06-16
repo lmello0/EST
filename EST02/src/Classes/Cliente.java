@@ -9,11 +9,19 @@ package Classes;
  * @author mello
  */
 public class Cliente {
+    private int codigo;
     private String nome;
     private String docType;
     private String docNum;
 
     public Cliente(String nome, String docType, String docNum) {
+        this.nome = nome;
+        this.docType = docType;
+        this.docNum = docNum;
+    }
+
+    public Cliente(int codigo, String nome, String docType, String docNum) {
+        this.codigo = codigo;
         this.nome = nome;
         this.docType = docType;
         this.docNum = docNum;
@@ -29,6 +37,10 @@ public class Cliente {
 
     public String getDocNum() {
         return docNum;
+    }
+    
+    public int getCodigo() {
+        return codigo;
     }
     
     

@@ -29,6 +29,7 @@ public final class ConnectionFactory {
     public ConnectionFactory() throws FileNotFoundException, IOException {
         Properties props = new Properties();
         
+        
         try {
             props.load(new FileInputStream("config.properties"));
         } catch (FileNotFoundException ex){

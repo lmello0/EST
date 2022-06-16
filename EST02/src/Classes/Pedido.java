@@ -80,4 +80,13 @@ public class Pedido {
         return produtos.size();
     }
     
+    public void removeProduto(int codigo){
+        for (int i = 0; i < produtos.size(); i++){
+            if (produtos.get(i).getCodigo() == codigo){
+                produtos.remove(i);
+                break;
+            }
+        }
+    }
+    
 }

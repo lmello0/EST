@@ -174,7 +174,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnCadastrarCliente.setText("Cadastrar cliente");
+        btnCadastrarCliente.setText("Gerenciar clientes");
         btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarClienteActionPerformed(evt);
@@ -322,8 +322,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarProdutosActionPerformed
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-        //abre a tela para cadastro de cliente
-        new TelaCadastroCliente(this, rootPaneCheckingEnabled, comandos).setVisible(true);
+        try {
+            //abre a tela para cadastro de cliente
+            new TelaCadastroCliente(this, rootPaneCheckingEnabled, comandos).setVisible(true);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed

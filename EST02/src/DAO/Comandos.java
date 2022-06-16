@@ -86,19 +86,24 @@ public class Comandos {
         return model;
     }
     
-    public ArrayList<String> getCliente() throws SQLException{
-        String SQL = "SELECT NOME FROM DEV.CLIENTE";
-        ArrayList<String> items = new ArrayList<>();
+    public ArrayList<Cliente> getCliente() throws SQLException{
+        String SQL = "SELECT COD_CLIENTE, NOME, DOC_TYPE, DOC_NUM FROM DEV.CLIENTE ORDER BY COD_CLIENTE";
+        ArrayList<Cliente> clientes = new ArrayList<>();
         
         try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
             ResultSet rs = execQuery.executeQuery();
             
             while (rs.next()){
-                String item = rs.getString(1);
-                items.add(item);
+                int codigo = rs.getInt(1);
+                String nome = rs.getString(2);
+                String docType = rs.getString(3);
+                String docNum = rs.getString(4);
+                
+                clientes.add(new Cliente(codigo, nome, docType, docNum));
             }
         }
-        return items;
+        
+        return clientes;
     }
     
     public ArrayList<String> getVendedor() throws SQLException{
@@ -178,7 +183,7 @@ public class Comandos {
         conexao.commit();
     }
     
-     public void insertCliente(Cliente cliente) throws SQLException {
+    public void insertCliente(Cliente cliente) throws SQLException {
         String SQL = "INSERT INTO DEV.CLIENTE (NOME, DOC_TYPE, DOC_NUM) VALUES(?, ?, ?)";
         
         try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
@@ -192,6 +197,33 @@ public class Comandos {
         
         conexao.commit();
      }
+
+    public void updateCliente(Cliente cliente) throws SQLException {
+        String SQL = "UPDATE DEV.CLIENTE SET NOME = ?, DOC_TYPE = ?, DOC_NUM = ? WHERE COD_CLIENTE = ?";
+        
+        try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
+            execQuery.setString(1, cliente.getNome());
+            execQuery.setString(2, cliente.getDocType());
+            execQuery.setString(3, cliente.getDocNum());
+            execQuery.setInt(4, cliente.getCodigo());
+            
+            execQuery.executeUpdate();
+        }
+        
+        conexao.commit();
+    }
+    
+    public void deleteCliente(Cliente cliente) throws SQLException {
+        String SQL = "DELETE DEV.CLIENTE WHERE COD_CLIENTE = ?";
+        
+        try (PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
+            execQuery.setInt(1, cliente.getCodigo());
+            
+            execQuery.executeUpdate();
+        }
+        
+        conexao.commit();
+    }
     
     public void closeConnection() throws SQLException{
         conexao.close();

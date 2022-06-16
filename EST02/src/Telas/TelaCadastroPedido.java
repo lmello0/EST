@@ -24,6 +24,8 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
     private Comandos comandos;
     private ArrayList<Produto> itens;
     private ArrayList<String> nomesProdutos = new ArrayList<>();
+    private ArrayList<Cliente> clientes;
+    private ArrayList<String> nomesClientes = new ArrayList<>();
     private boolean stateChange = true;
     private float totalPedido = 0;
     private Pedido pedido = new Pedido();
@@ -44,15 +46,20 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             
             // Pega todos os produtos para popular as variaveis e disponibilizar nos comboBoxes
             itens = comandos.getProduto();
+            clientes = comandos.getCliente();
             
             // Para cada produto em 'itens' adiciona o nome a variavel 'nomesProdutos'
             for (Produto produtos : itens) {
                 nomesProdutos.add(produtos.getNome());
             }
             
+            for (Cliente cliente : clientes) {
+                nomesClientes.add(cliente.getNome());
+            }
+            
             // popula todas as comboBoxes
             popularComboBox(cbProduto, nomesProdutos);
-            popularComboBox(cbCliente, comandos.getCliente());
+            popularComboBox(cbCliente, nomesClientes);
             popularComboBox(cbVendedor, comandos.getVendedor());
             
             txtItensEstoque.setText(String.valueOf(itens.get(cbProduto.getSelectedIndex()).getQuantidade()-1));
@@ -504,6 +511,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
         
         DefaultTableModel modelo = (DefaultTableModel) tablePedido.getModel();
         modelo.removeRow(row);
+        pedido.removeProduto(Integer.parseInt(tablePedido.getValueAt(row, 0).toString()));
         
         if (tablePedido.getRowCount() == 0) {
             cbCliente.setEnabled(true);
