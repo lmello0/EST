@@ -60,7 +60,7 @@ public class TelaCadastroPedido extends javax.swing.JDialog {
             // popula todas as comboBoxes
             popularComboBox(cbProduto, nomesProdutos);
             popularComboBox(cbCliente, nomesClientes);
-            popularComboBox(cbVendedor, comandos.getVendedor());
+            popularComboBox(cbVendedor, comandos.getFuncionario());
             
             txtItensEstoque.setText(String.valueOf(itens.get(cbProduto.getSelectedIndex()).getQuantidade()-1));
             

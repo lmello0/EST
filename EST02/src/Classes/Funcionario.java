@@ -10,6 +10,7 @@ package Classes;
  * @author mello
  */
 public class Funcionario {
+    private int codigo;
     private final String nome;
     private final String cpf;
     private final String cargo;
@@ -23,6 +24,19 @@ public class Funcionario {
         this.cargo = cargo;
         this.matricula = matricula;
         this.senha = senha;
+    }
+
+    public Funcionario(int codigo, String nome, String cpf, String cargo, String matricula, String senha) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.cargo = cargo;
+        this.matricula = matricula;
+        this.senha = senha;
+    }
+
+    public int getCodigo() {
+        return codigo;
     }
 
     public String getNome() {

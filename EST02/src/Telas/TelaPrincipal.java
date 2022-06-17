@@ -159,7 +159,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblBuscar.setText("Número do pedido.:");
 
         btnCadastrarFuncionario.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        btnCadastrarFuncionario.setText("Cadastrar funcionário");
+        btnCadastrarFuncionario.setText("Gerenciar funcionarios");
         btnCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarFuncionarioActionPerformed(evt);
@@ -302,8 +302,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-        // abre tela para cadastro de funcionario
-        new TelaCadastroVendedor(this, true, comandos).setVisible(true);
+        try {
+            // abre tela para cadastro de funcionario
+            new TelaVendedor(this, true, comandos).setVisible(true);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
@@ -324,7 +328,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
         try {
             //abre a tela para cadastro de cliente
-            new TelaCadastroCliente(this, rootPaneCheckingEnabled, comandos).setVisible(true);
+            new TelaCliente(this, true, comandos).setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
         }

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mello
  */
-public class TelaCadastroCliente extends javax.swing.JDialog {
+public class TelaCliente extends javax.swing.JDialog {
     Comandos comandos;
     private ArrayList<Cliente> clientes;
     private boolean stateChange = true;
@@ -28,7 +28,7 @@ public class TelaCadastroCliente extends javax.swing.JDialog {
     /**
      * Creates new form TelaCliente
      */
-    public TelaCadastroCliente(java.awt.Frame parent, boolean modal, Comandos comandos) throws SQLException {
+    public TelaCliente(java.awt.Frame parent, boolean modal, Comandos comandos) throws SQLException {
         super(parent, modal);
         this.comandos = comandos;
         initComponents();

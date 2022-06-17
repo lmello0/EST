@@ -106,19 +106,24 @@ public class Comandos {
         return clientes;
     }
     
-    public ArrayList<String> getVendedor() throws SQLException{
-        String SQL = "SELECT NOME FROM DEV.VENDEDOR";
-        ArrayList<String> items = new ArrayList<>();
+    public ArrayList<Funcionario> getFuncionario() throws SQLException{
+        String SQL = "SELECT COD_VENDEDOR, NOME, CPF, MATRICULA, CARGO FROM DEV.VENDEDOR ORDER BY COD_VENDEDOR";
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
         
         try(PreparedStatement execQuery = conexao.prepareStatement(SQL)){
             ResultSet rs = execQuery.executeQuery();
             
             while (rs.next()){
-                String item = rs.getString(1);
-                items.add(item);
+                int codigo = rs.getInt(1);
+                String nome = rs.getString(2);
+                String cpf = rs.getString(3);
+                String matricula = rs.getString(4);
+                String cargo = rs.getString(5);
+                
+                funcionarios.add(new Funcionario(codigo, nome, cpf, cargo, matricula, ""));
             }
         }
-        return items;
+        return funcionarios;
     }
     
     public ArrayList<Produto> getProduto() throws SQLException{
@@ -213,11 +218,39 @@ public class Comandos {
         conexao.commit();
     }
     
+    public void updateFuncionario(Funcionario funcionario) throws SQLException {
+        String SQL = "UPDATE DEV.VENDEDOR SET NOME = ?, CPF = ?, MATRICULA = ?, CARGO = ? WHERE COD_VENDEDOR = ?";
+        
+        try(PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
+            execQuery.setString(1, funcionario.getNome());
+            execQuery.setString(2, funcionario.getCpf());
+            execQuery.setString(3, funcionario.getMatricula());
+            execQuery.setString(4, funcionario.getCargo());
+            execQuery.setInt(5, funcionario.getCodigo());
+            
+            execQuery.executeUpdate();
+        }
+        
+        conexao.commit();
+    }
+    
     public void deleteCliente(Cliente cliente) throws SQLException {
         String SQL = "DELETE DEV.CLIENTE WHERE COD_CLIENTE = ?";
         
         try (PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
             execQuery.setInt(1, cliente.getCodigo());
+            
+            execQuery.executeUpdate();
+        }
+        
+        conexao.commit();
+    }
+    
+    public void deleteFuncionario(Funcionario funcionario) throws SQLException {
+        String SQL = "DELETE DEV.VENDEDOR WHERE COD_VENDEDOR = ?";
+        
+        try (PreparedStatement execQuery = conexao.prepareStatement(SQL)){
+            execQuery.setInt(1, funcionario.getCodigo());
             
             execQuery.executeUpdate();
         }
