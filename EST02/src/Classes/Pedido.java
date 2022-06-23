@@ -12,81 +12,76 @@ import java.util.Random;
  * @author mello
  */
 public class Pedido {
-    private int codPedido;
-    private double valor;
-    private String cliente;
-    private String vendedor;
+    private int codPedido = 0;
+    private int codCliente;
+    private int codVendedor;
     private ArrayList<Produto> produtos = new ArrayList<>();
-
-    public Pedido(){}
+    private double valor;
     
-    public Pedido(int codPedido, double valor, String cliente, String vendedor, Produto produto) {
-        this.codPedido = codPedido;
-        this.valor = valor;
-        this.cliente = cliente;
-        this.vendedor = vendedor;
-        produtos.add(produto);
-    }
-    
-    public Pedido(double valor, String cliente, String vendedor, Produto produto) {
-        this.codPedido = new Random().nextInt(Integer.SIZE - 1);
-        this.valor = valor;
-        this.cliente = cliente;
-        this.vendedor = vendedor;
-        produtos.add(produto);
-    }
-
-    public int getCodPedido() {
+    public int getCodPedido(){
         return codPedido;
     }
     
-    public void setNewCodPedido(){
-        this.codPedido = new Random().nextInt();
+    public void setCodPedido(int codPedido){
+        this.codPedido = codPedido;
     }
-
-    public double getValor() {
+    
+    public void setNewCodPedido() {
+        this.codPedido = new Random().nextInt(Integer.SIZE - 1);
+    }
+    
+    public int getCodCliente(){
+        return codCliente;
+    }
+    
+    public void setCodCliente(int codCliente){
+        this.codCliente = codCliente;
+    }
+    
+    public int getCodVendedor(){
+        return codVendedor;
+    }
+    
+    public void setCodVendedor(int codVendedor){
+        this.codVendedor = codVendedor;
+    }
+    
+    public double getValor(){
         return valor;
     }
-
-    public void setValor(double valor) {
+    
+    public void setValor(double valor){
         this.valor = valor;
     }
-
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
-    public String getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(String vendedor) {
-        this.vendedor = vendedor;
-    }
-
-    public ArrayList<Produto> getProdutos() {
+    
+    public ArrayList<Produto> getProdutos(){
         return produtos;
     }
-
-    public void addProduto(Produto produto){
-        produtos.add(produto);
+    
+    public void setProdutos(ArrayList<Produto> produtos) {
+        this.produtos = produtos;
     }
     
-    public int getProdutoCount(){
-        return produtos.size();
-    }
-    
-    public void removeProduto(int codigo){
+    public void setProduto(Produto produtoAdd){
         for (int i = 0; i < produtos.size(); i++){
-            if (produtos.get(i).getCodigo() == codigo){
-                produtos.remove(i);
+            if (produtos.get(i).getCodigo() == produtoAdd.getCodigo()) {
+                produtos.set(i, produtoAdd);
                 break;
             }
         }
     }
     
+    public void addProduto(Produto produtoAdd){
+        boolean found = false;
+        for (Produto produto : produtos){
+            if (produto.getCodigo() == produtoAdd.getCodigo()){
+                found = true;
+                produto.setQuantidade(produto.getQuantidade() + produtoAdd.getQuantidade());
+            }
+        }
+        
+        if (!found){
+            produtos.add(produtoAdd);
+        }
+    }
 }

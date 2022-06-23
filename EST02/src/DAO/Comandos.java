@@ -106,7 +106,7 @@ public class Comandos {
         return clientes;
     }
     
-    public ArrayList<Funcionario> getFuncionario() throws SQLException{
+    public ArrayList<Funcionario> getFuncionario() throws SQLException {
         String SQL = "SELECT COD_VENDEDOR, NOME, CPF, MATRICULA, CARGO FROM DEV.VENDEDOR ORDER BY COD_VENDEDOR";
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         
@@ -147,6 +147,50 @@ public class Comandos {
         return itens;
     }
     
+    public Pedido getPedido(int codPedido) throws SQLException {
+        String SQL = "SELECT PEDIDO.COD_PEDIDO, PEDIDO.COD_CLIENTE, PEDIDO.COD_VENDEDOR, PEDIDO.VALOR_TOTAL FROM DEV.PEDIDO PEDIDO JOIN DEV.PEDIDO_PRODUTO PP ON PP.COD_PEDIDO = PEDIDO.COD_PEDIDO JOIN DEV.VENDEDOR VENDEDOR ON VENDEDOR.COD_VENDEDOR = PEDIDO.COD_VENDEDOR JOIN DEV.CLIENTE CLIENTE ON CLIENTE.COD_CLIENTE = PEDIDO.COD_CLIENTE JOIN DEV.PRODUTO PRODUTO ON PRODUTO.COD_PRODUTO = PP.COD_PRODUTO WHERE PEDIDO.COD_PEDIDO = ? ORDER BY PEDIDO.DATE_CREATED DESC";
+        Pedido pedido = new Pedido();
+        ArrayList<Produto> produtos;
+        
+        try (PreparedStatement execQuery = conexao.prepareStatement(SQL)){
+            execQuery.setInt(1, codPedido);
+            
+            ResultSet rs = execQuery.executeQuery();    
+            while (rs.next()){
+                int codPedidoR = rs.getInt(1);
+                int codClienteR = rs.getInt(2);
+                int codFuncionarioR = rs.getInt(3);
+                double valorTotR = rs.getDouble(4);
+                
+                pedido.setCodPedido(codPedidoR);
+                pedido.setCodCliente(codClienteR);
+                pedido.setCodVendedor(codFuncionarioR);
+                pedido.setValor(valorTotR);
+            }
+            
+        }
+        
+        SQL = "SELECT PRODUTO.COD_PRODUTO, PRODUTO.NOME, PP.QUANTIDADE, PRODUTO.VALOR, PRODUTO.DESCRICAO FROM DEV.PRODUTO PRODUTO JOIN DEV.PEDIDO_PRODUTO PP ON PP.COD_PRODUTO = PRODUTO.COD_PRODUTO WHERE PP.COD_PEDIDO = ?";
+        try (PreparedStatement execQuery = conexao.prepareStatement(SQL)){
+            execQuery.setInt(1, codPedido);
+            
+            ResultSet rs = execQuery.executeQuery();
+            while (rs.next()){
+                int codProduto = rs.getInt(1);
+                String nome = rs.getString(2);
+                int quantidade = rs.getInt(3);
+                double valor = rs.getDouble(4);
+                String descricao = rs.getString(5);
+                
+                Produto produto = new Produto(codProduto, nome, quantidade, valor, descricao);
+                
+                pedido.addProduto(produto);
+            }
+        }
+        
+        return pedido;
+    }
+    
     public long insertProduto(Produto produto) throws SQLException {
         String pk[] = {"COD_PRODUTO"};
         String SQL = "INSERT INTO DEV.PRODUTO(NOME, QUANTIDADE, VALOR, DESCRICAO) VALUES(?, ?, ?, ?)";
@@ -174,12 +218,12 @@ public class Comandos {
         
         try (PreparedStatement execQuery = conexao.prepareCall(SQL)){
             for (Produto produto : pedido.getProdutos()){
-                execQuery.setInt(1, produto.getCodigo());
-                execQuery.setInt(2, produto.getQuantidade());
-                execQuery.setString(3, pedido.getCliente());
-                execQuery.setString(4, pedido.getVendedor());
-                execQuery.setDouble(5, pedido.getValor());
-                execQuery.setInt(6, pedido.getCodPedido());
+                execQuery.setInt(1, pedido.getCodPedido());
+                execQuery.setInt(2, pedido.getCodCliente());
+                execQuery.setInt(3, pedido.getCodVendedor());
+                execQuery.setInt(4, produto.getCodigo());
+                execQuery.setInt(5, produto.getQuantidade());
+                execQuery.setDouble(6, pedido.getValor());
                 
                 execQuery.executeUpdate();
             }
@@ -234,6 +278,41 @@ public class Comandos {
         conexao.commit();
     }
     
+    public void updateProduto(Produto produto) throws SQLException {
+        String SQL = "UPDATE DEV.PRODUTO SET NOME = ?, QUANTIDADE = ?, VALOR = ?, DESCRICAO = ? WHERE COD_PRODUTO = ?";
+        
+        try (PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
+            execQuery.setString(1, produto.getNome());
+            execQuery.setInt(2, produto.getQuantidade());
+            execQuery.setDouble(3, produto.getValor());
+            execQuery.setString(4, produto.getDescricao());
+            execQuery.setInt(5, produto.getCodigo());
+            
+            execQuery.executeUpdate();
+        }
+        
+        conexao.commit();
+    }
+    
+    public void updatePedido(Pedido pedido) throws SQLException {
+        this.insertPedido(pedido);
+//        String SQL = "UPDATE DEV.PEDIDO_PRODUTO SET QUANTIDADE = ? WHERE COD_PEDIDO = ? AND COD_PRODUTO = ?";
+//        
+//        try (PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
+//            for (Produto produto : pedido.getProdutos()) {
+//                execQuery.setInt(1, produto.getQuantidade());
+//                execQuery.setInt(2, pedido.getCodPedido());
+//                execQuery.setInt(3, produto.getCodigo());
+//                
+//                execQuery.executeUpdate();
+//            }
+//        }
+//        
+        atualizaValorTotalPedido(pedido.getCodPedido());
+        
+        conexao.commit();
+    }
+    
     public void deleteCliente(Cliente cliente) throws SQLException {
         String SQL = "DELETE DEV.CLIENTE WHERE COD_CLIENTE = ?";
         
@@ -256,6 +335,32 @@ public class Comandos {
         }
         
         conexao.commit();
+    }
+    
+    public void deleteProdutoPedido(Pedido pedido, int codProduto) throws SQLException {
+        String SQL = "DELETE DEV.PEDIDO_PRODUTO WHERE COD_PEDIDO = ? AND COD_PRODUTO = ?";
+        
+        try (PreparedStatement execQuery = conexao.prepareStatement(SQL)) {
+            execQuery.setInt(1, pedido.getCodPedido());
+            execQuery.setInt(2, codProduto);
+            
+            execQuery.executeUpdate();
+            
+        }
+        
+        atualizaValorTotalPedido(pedido.getCodPedido());
+        
+        conexao.commit();
+    }
+    
+    private void atualizaValorTotalPedido(int codPedido) throws SQLException {
+        String SQL = "{CALL DEV.SP_ATUALIZA_VALOR_PEDIDO(?)}";
+        
+        try (PreparedStatement execQuery = conexao.prepareCall(SQL)) {
+            execQuery.setInt(1, codPedido);
+            
+            execQuery.executeUpdate();
+        }
     }
     
     public void closeConnection() throws SQLException{

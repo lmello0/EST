@@ -6,13 +6,9 @@ package Telas;
 
 import Classes.Cliente;
 import DAO.Comandos;
-import java.awt.Dimension;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

@@ -7,7 +7,7 @@ package Telas;
 import DAO.Comandos;
 import Classes.*;
 import Imagens.Imagem;
-import java.awt.Toolkit;
+import javax.swing.JSpinner;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +31,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.funcionario = funcionario;
         this.setIconImage(new Imagem().getImage("icon.png"));
         initComponents();
-
+        
         // seta o nome e a matricula do funcionario na tela
         lblFuncionario.setText(funcionario.getNome());
         lblMatricula.setText(funcionario.getMatricula());
@@ -63,35 +63,47 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPaneGeral = new javax.swing.JScrollPane();
+        menuRelatorioVenda = new javax.swing.JPopupMenu();
+        baixarRelatorio = new javax.swing.JMenuItem();
         panelGeral = new javax.swing.JPanel();
         lblFuncionarioStatic = new javax.swing.JLabel();
         lblFuncionario = new javax.swing.JLabel();
         lblMatriculaStatic = new javax.swing.JLabel();
         lblMatricula = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         btnSair = new javax.swing.JButton();
-        btnNovoPedido = new javax.swing.JButton();
-        btnRelatorio = new javax.swing.JButton();
-        lblHistoricoPedidos = new javax.swing.JLabel();
-        scrollPaneTablePedidos = new javax.swing.JScrollPane();
-        tablePedidos = new javax.swing.JTable();
-        btnBuscar = new javax.swing.JButton();
-        txtBuscar = new javax.swing.JTextField();
-        lblBuscar = new javax.swing.JLabel();
         btnCadastrarFuncionario = new javax.swing.JButton();
+        btnNovoPedido = new javax.swing.JButton();
         btnCadastrarProdutos = new javax.swing.JButton();
         btnCadastrarCliente = new javax.swing.JButton();
-        btnEstoque = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        scrollPaneTablePedidos = new javax.swing.JScrollPane();
+        tablePedidos = new javax.swing.JTable();
+        lblBuscar = new javax.swing.JLabel();
+        lblHistoricoPedidos = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+
+        baixarRelatorio.setText("Baixar relatorio de venda");
+        baixarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                baixarRelatorioActionPerformed(evt);
+            }
+        });
+        menuRelatorioVenda.add(baixarRelatorio);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EST 1.0");
         setMinimumSize(new java.awt.Dimension(1421, 608));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        scrollPaneGeral.setMinimumSize(new java.awt.Dimension(858, 560));
-
         panelGeral.setMinimumSize(new java.awt.Dimension(858, 560));
         panelGeral.setPreferredSize(new java.awt.Dimension(858, 560));
+        panelGeral.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                panelGeralMouseReleased(evt);
+            }
+        });
 
         lblFuncionarioStatic.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         lblFuncionarioStatic.setText("Funcionário.:");
@@ -103,6 +115,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lblMatricula.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         btnSair.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -111,24 +125,68 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnCadastrarFuncionario.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        btnCadastrarFuncionario.setText("Gerenciar funcionarios");
+        btnCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarFuncionarioActionPerformed(evt);
+            }
+        });
+
         btnNovoPedido.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        btnNovoPedido.setText("Novo pedido");
+        btnNovoPedido.setText("Pedidos");
         btnNovoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoPedidoActionPerformed(evt);
             }
         });
 
-        btnRelatorio.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        btnRelatorio.setText("Relatório de venda");
-        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarProdutos.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        btnCadastrarProdutos.setText("Gerenciar produtos");
+        btnCadastrarProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRelatorioActionPerformed(evt);
+                btnCadastrarProdutosActionPerformed(evt);
             }
         });
 
-        lblHistoricoPedidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        lblHistoricoPedidos.setText("Histórico de pedidos");
+        btnCadastrarCliente.setText("Gerenciar clientes");
+        btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarClienteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCadastrarCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCadastrarProdutos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCadastrarFuncionario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNovoPedido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSair)
+                    .addComponent(btnNovoPedido)
+                    .addComponent(btnCadastrarFuncionario)
+                    .addComponent(btnCadastrarProdutos)
+                    .addComponent(btnCadastrarCliente))
+                .addContainerGap())
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tablePedidos.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         tablePedidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -149,6 +207,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         scrollPaneTablePedidos.setViewportView(tablePedidos);
 
+        lblBuscar.setText("Número do pedido.:");
+
+        lblHistoricoPedidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        lblHistoricoPedidos.setText("Histórico de pedidos");
+
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,37 +219,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        lblBuscar.setText("Número do pedido.:");
-
-        btnCadastrarFuncionario.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        btnCadastrarFuncionario.setText("Gerenciar funcionarios");
-        btnCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarFuncionarioActionPerformed(evt);
-            }
-        });
-
-        btnCadastrarProdutos.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        btnCadastrarProdutos.setText("Cadastrar produtos");
-        btnCadastrarProdutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarProdutosActionPerformed(evt);
-            }
-        });
-
-        btnCadastrarCliente.setText("Gerenciar clientes");
-        btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarClienteActionPerformed(evt);
-            }
-        });
-
-        btnEstoque.setText("Estoque");
-        btnEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEstoqueActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblHistoricoPedidos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar))
+                    .addComponent(scrollPaneTablePedidos))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHistoricoPedidos)
+                    .addComponent(btnBuscar)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneTablePedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout panelGeralLayout = new javax.swing.GroupLayout(panelGeral);
         panelGeral.setLayout(panelGeralLayout);
@@ -195,38 +258,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(panelGeralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTablePedidos)
                     .addGroup(panelGeralLayout.createSequentialGroup()
-                        .addComponent(lblHistoricoPedidos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 586, Short.MAX_VALUE)
-                        .addComponent(lblBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar))
-                    .addGroup(panelGeralLayout.createSequentialGroup()
-                        .addComponent(lblMatriculaStatic)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGeralLayout.createSequentialGroup()
-                        .addComponent(lblFuncionarioStatic)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnCadastrarCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCadastrarProdutos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEstoque)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCadastrarFuncionario)
-                        .addGap(12, 12, 12)
-                        .addComponent(btnRelatorio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNovoPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSair)))
+                        .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelGeralLayout.createSequentialGroup()
+                                .addComponent(lblMatriculaStatic)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelGeralLayout.createSequentialGroup()
+                                .addComponent(lblFuncionarioStatic)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelGeralLayout.setVerticalGroup(
@@ -234,35 +278,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(panelGeralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSair)
-                        .addComponent(btnNovoPedido)
-                        .addComponent(btnRelatorio)
-                        .addComponent(btnCadastrarFuncionario)
-                        .addComponent(btnCadastrarProdutos)
-                        .addComponent(btnCadastrarCliente)
-                        .addComponent(btnEstoque))
-                    .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblFuncionario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblFuncionarioStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(7, 7, 7)
-                .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblMatriculaStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblMatricula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
-                .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHistoricoPedidos)
-                    .addComponent(btnBuscar)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTablePedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addGroup(panelGeralLayout.createSequentialGroup()
+                        .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblFuncionario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFuncionarioStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(13, 13, 13)
+                        .addGroup(panelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblMatriculaStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblMatricula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        scrollPaneGeral.setViewportView(panelGeral);
-
-        getContentPane().add(scrollPaneGeral);
+        getContentPane().add(panelGeral);
 
         pack();
         setLocationRelativeTo(null);
@@ -310,19 +340,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
-    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        // abre a tela de relatorios
-        new TelaRelatorioVenda(this, true, comandos, funcionario).setVisible(true);
-    }//GEN-LAST:event_btnRelatorioActionPerformed
-
     private void btnNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPedidoActionPerformed
-        // abre a tela para cadastro de um novo pedido
-        new TelaCadastroPedido(this, true, comandos, funcionario).setVisible(true);
+        try {
+            // abre a tela para cadastro de um novo pedido
+            new TelaPedido(this, rootPaneCheckingEnabled, comandos, funcionario).setVisible(true);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnNovoPedidoActionPerformed
 
     private void btnCadastrarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutosActionPerformed
-        //abre a tela para cadastro de produtos
-        new TelaCadastroProdutos(this, true, comandos).setVisible(true);
+        try {
+            //abre a tela para cadastro de produtos
+            new TelaProdutos(this, true, comandos).setVisible(true);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro.: " + ex, null, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCadastrarProdutosActionPerformed
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
@@ -334,10 +367,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
-    private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
-        // abre a tela para consulta e extração do estoque
-        new TelaEstoque(this, rootPaneCheckingEnabled, comandos).setVisible(true);
-    }//GEN-LAST:event_btnEstoqueActionPerformed
+    private void baixarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixarRelatorioActionPerformed
+        // abre a tela de relatorios
+        new TelaRelatorioVenda(this, true, comandos, funcionario).setVisible(true);
+    }//GEN-LAST:event_baixarRelatorioActionPerformed
+
+    private void panelGeralMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelGeralMouseReleased
+        if (evt.isPopupTrigger()) {
+            menuRelatorioVenda.show(this, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_panelGeralMouseReleased
     
     private boolean isNumber(String string){
         // checa se a string eh um integer
@@ -363,22 +402,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem baixarRelatorio;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCadastrarFuncionario;
     private javax.swing.JButton btnCadastrarProdutos;
-    private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnNovoPedido;
-    private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnSair;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblFuncionarioStatic;
     private javax.swing.JLabel lblHistoricoPedidos;
     private javax.swing.JLabel lblMatricula;
     private javax.swing.JLabel lblMatriculaStatic;
+    private javax.swing.JPopupMenu menuRelatorioVenda;
     private javax.swing.JPanel panelGeral;
-    private javax.swing.JScrollPane scrollPaneGeral;
     private javax.swing.JScrollPane scrollPaneTablePedidos;
     private static javax.swing.JTable tablePedidos;
     private javax.swing.JTextField txtBuscar;

@@ -1,16 +1,61 @@
 # EST
 
-Programa em Java para manipulação da aplicação. Tem conexão direta com o banco
+<p align="center">
+    <img src="logo.png" />
+</p>
+
+Essa aplicação foi desenvolvida com o objetivo de permitir o controle de um estoque, e conta com gerenciamento de funcionários, clientes, produtos e pedidos, além da possibilidade de extrair relatórios de saldo de estoque e histórico de vendas. Foi desenvolvido em Java, Java Swing e o banco de dados utilizado foi Oracle. A aplicação foi desenvolvida como trabalho para faculdade e por isso foram utilizadas essas tecnologias para o desenvolvimento.
+
+---
 
 ## Requerimentos
 
 - Java 11 ou superior
-- C3P0 0.9
-- Mchange-commons 0.2
 - JDBC 10
-- Oracle PKI
-- OSDT CERT
-- OSDT CORE
 
 ---
-Para instalar os requisitos, basta baixar as bibliotecas nos seguintes links https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html (JDBC), https://sourceforge.net/projects/c3p0/ (C3P0) e https://mvnrepository.com/artifact/com.mchange/mchange-commons-java/0.2.20 (Mchange). Depois de baixado, extraia os arquivos do JDBC e importe os arquivos requeridos para o projeto, faça o mesmo para a biblioteca C3P0 e Mchange.
+
+## Como instalar
+
+1. Baixe o repositório
+2. Dê duplo clique em 'dist/EST02.jar'
+3. Configure as credenciais para acesso na Oracle Cloud
+4. Pronto! Agora basta logar com o seu usuário e senha para utilizar a aplicação.
+
+---
+
+## Imagens:
+
+- Página de login
+
+![página de login](imagens/login.png)
+
+- Página principal
+
+![página principal](imagens/principal.png)
+
+- Gerenciamento de clientes
+
+![Gerenciamento de clientes](imagens/clientes.png)
+
+- Gerenciamento de produtos
+
+![Gerenciamento de produtos](imagens/produtos.png)
+
+- Gerenciamento de funcionarios
+
+![Gerenciamento de funcionarios](imagens/funcionarios.png)
+
+- Gerenciamento de pedidos
+
+![Gerenciamento de pedidos](imagens/pedidos.png)
+
+- Histórico de vendas
+
+![Histórico de vendas](imagens/relatorioVendas.png)
+
+---
+
+## Extração de relatórios
+
+Para abrir a página de extração de histórico de vendas, basta apertar com o botão direito na tela principal, e para extração do saldo de estoque, basta fazer o mesmo procedimento na tela de 'produtos'.
